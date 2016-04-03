@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{sectsty}
+\usepackage{cancel}
+\usepackage{float}
+\usepackage{placeins} 
+\usepackage{enumitem}
+\sectionfont{\large}
+\subsectionfont{\normalsize}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{10pt}
+\geometry{top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm}
+\setlist{nosep}
+
+\title{How often should you fill up on gas?}
+\author{Jim Tang}
+\begin{document}
+  \maketitle
+
+Over the past two weeks, I have observed an enormous increase in gas prices. Unfortunately, having not filled up on gas in awhile, I missed it when the prices bottomed out. Perhaps, if I had filled up on gas more often, I may have been able to get it when it was at its lowest. This inspired me to ask the question: in general, is it better to fill up more or less frequently, in smaller or bigger chunks?
+
+\par Gas prices are known to fluctuate back-and-forth. Mathematically, we can model this with a sinusoidal function. (Recall that any oscillatory signal can be expressed us a sum of sinusoids, so this is a good starting point.) Let $G(t)$ be the gas price as a function of time. With this model,
+\begin{align}
+G(t) = G_0 + G_a \sin \left( \frac{2 \pi t}{f}\right) \label{eq:gas_prices},
+\end{align}
+where $G_0$ is the average gas price, $G_a$ is the maximum oscillation from the average, and $f$ is the frequency of oscillation. The values of $G_a / G_0$ and $f$ determine the volatility of prices.
+
+\par Let's say we fill up on gas at constant intervals of time $\tau$, and we do this for a total time $T$, such that during the total time we fill up $N$ times, where
+ $$N = \frac{T}{\tau}.$$ 
+Every time, we want to fill up our vehicle until it is full, which will require $b \tau$ amount of gas, where $b$ is some proportionality constant with dimensions of [amount of gas] / [time]. The cost of filling up gas the $k$th time $C_k$ is the amount of gas multiplied by the cost of gas at time $t = k \tau$, or
+\begin{align}
+C_k = b\tau \, G(t = k \tau) = b\tau \left( G_0 + G_a \sin \left( \frac{2 \pi k \tau}{f}\right) \right).
+\end{align}
+The total cost of gas through time $T$, which we will denote as $C$, is
+\begin{align}
+C = \sum_{k=1}^{N}{C_k} &= \sum_{k=1}^{N}{ b\tau \left( G_0 + G_a \sin \left( \frac{2 \pi k \tau}{f}\right) \right)} \nonumber \\ 
+ &= \underbrace{\sum_{k=1}^{N}{ b\tau G_0}}_{=Nb \tau G_0} + \: b \tau G_a \sum_{k=1}^{N} \sin \left( \frac{2 \pi k \tau}{f}\right). \label{eq:sum_C_k}
+\end{align}
+Define 
+$$
+C_0 \equiv Nb\tau G_0 = TbG_0
+$$
+ as the base cost, the cost of gas if you hit the average cost every time you filled up gas. Moving all terms without $\tau$ to the LHS yields
+\begin{align}
+\frac{C - C_0}{b G_a} = \tau \sum_{k=1}^{N}{\sin \left( \frac{2 \pi k \tau}{f}\right)} \label{eq:result_dimensional}.
+\end{align}
+Nondimensionalizing the equation, we define a dimensionless time $q$
+$$
+q \equiv \frac{\tau}{f}.
+$$ 
+In terms of $q$, we can rewrite \eqref{eq:result_dimensional} as
+\begin{align}
+\frac{C - C_0}{b G_a f} = q \sum_{k=1}^{N}{\sin \left( 2 \pi k q\right)}. \label{eq:result_dimensionless}
+\end{align}
+For simplicity's sake, we will hereafter write the LHS as $L \equiv (C - C_0) / b G_a f$.
+
+\par
+Recall now that we defined $N$ in terms of $\tau$ (and by extension, $q$). So we are not yet done. We have to evaluate the sum to extract $N$, which, after an involved calculation, results in
+\begin{align}
+L = q \: \frac{\sin(N\pi q) \sin((N+1)\pi q)}{\sin(\pi q)}.
+\end{align}
+Substituting 
+$$
+N = \frac{T}{\tau} = \frac{T}{fq},
+$$
+we get
+\begin{align}
+L = q \: \frac{\sin\left(\frac{T \pi}{f}\right) \sin\left(\frac{T \pi}{f} + \pi q\right)}{\sin(\pi q)}. \label{eq:result_final1}
+\end{align}
+To simplify \eqref{eq:result_final1}, define a new dimensionless time $p$ as 
+$$
+p \equiv \frac{T}{f}.
+$$ 
+Then, we get our final result,
+\begin{align}
+\boxed{L = \frac{C - C_0}{b G_a f} = q \: \frac{\sin(\pi p) \sin(\pi (p+q))}{\sin(\pi q)}}. \label{eq:result_final2}
+\end{align}
+
+\par
+\textbf{Interpretation} -- $L$ is a dimensionless measure of how much we actually pay for gas through time $T$, from our ``base" cost. We want to see how that varies with our variables, in this case the dimensionless times $p$ and $q$.
+
+\par
+We recall $p = T / f$, $q = \tau / f$. Think of this as a ``sampling'' problem, where we are sampling a signal (the gas prices) at periodic intervals of $\tau$, for a length of time $T$. The dimensionless forms of those time metrics are just scaled against a reference time which is the frequency at which the gas prices fluctuate. In summary, $p$ is a measure of for how long you are doing the analysis. $q$ is a measure of how often you want to fill up gas. $q$ is the critical variable to answer the question in the title of this document.
+
+\par
+The sinusoids in \eqref{eq:result_final2} make it difficult to predict the behavior, compounded by the presence of three of them in products/ratios. In addition, as $-1 \leq \sin u \leq 1$, the ratio in \eqref{eq:result_final2} could range from $-\infty$ to $+\infty$. Instead, to analyze the result, and to answer the question posed in the title, we must look at some limiting cases.
+
+\par
+\textbf{Limiting Cases}
+
+\par
+1) $q \rightarrow 0$, $p$ finite: In this case,
+\begin{align}
+\sin (\pi q) &\rightarrow \pi q, \nonumber\\
+\sin (\pi(p+q))  &\rightarrow \sin(\pi p), \text{ so} \nonumber\\[0.5em]
+L = q \: \frac{\sin(\pi p) \sin(\pi (p+q))}{\sin(\pi q)} &\rightarrow \frac{\sin^2(\pi p)}{\pi}. \label{eq:q_to_zero}
+\end{align}
+A few remarks:
+\vspace{-2mm}
+\begin{itemize}
+	\item The result in \eqref{eq:q_to_zero} does not depend on $q$.
+	\item Instead of the range from $-\infty$ to $+\infty$, it only goes from 0 to $1/\pi$.
+\end{itemize}
+
+But \textit{mathematically} speaking, what is $q \rightarrow 0$? It is when our ``sampling" becomes continuous. In other words, it is when the discrete sum that we started setting up in \eqref{eq:sum_C_k} approaches an \textit{integral}. With that said, the result in \eqref{eq:q_to_zero} can be checked. Instead of evaluating the sum in \eqref{eq:result_dimensionless}, we will convert it into an integral and evaluate that. The results should match this limiting case.
+
+
+%\numberwithin{equation}{section}
+%\numberwithin{figure}{section}
+%\section{Spherical Earth, Isothermal Atmosphere, No Refraction, Monochromatic Source}
+%\section{Basic Computation}
+%\label{sec:basic}
+
+\end{document}
