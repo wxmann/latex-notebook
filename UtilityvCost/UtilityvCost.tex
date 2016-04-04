@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\geometry{top=3cm,bottom=3cm,left=3.5cm,right=3.5cm}
+\title{Getting the Most Bang for Your Buck}
+\author{}
+\date{}
+\begin{document}
+  \maketitle 
+  
+  One of the great choices a consumer has to make is how much of a good or service to buy. In some cases the choice is easy--you only need one toilet, one lamp, or one bed. In other cases, such as food, it is tempting to purchase until you get absolutely fulfilled.
+  
+  But as we wiil see, that is not always the best decision. In this study we attempt to find a point where you get the most bang for your buck - i.e. that you will get the most utility relative to the cost you put in.
+
+\vspace{16pt}
+\textbf{Setup; Assumptions}---We will only analyze one specific good at a time here, and assume that the price per unit remains constant for however many units the consumer wishes to buy. Thus we can define a cost function \textit{C(g)} given by
+\begin{equation}
+	C(g) = Pg,
+\end{equation}
+
+where \textit{P}, the constant of proportionality, is the price of one unit, and \textit{g} is the number of units the consumer purchases.
+
+Next we will define a utility function \textit{U(g)}. We do not know the exact form of the function, so we use a Taylor Series approximation about \textit{g = a}:
+
+\begin{equation}
+	U(g) \approx U(a) + \frac{U'(a)}{1!} (g - a) + \frac{U''(a)}{2!}(g - a)^2 + \frac{U'''(a)}{3!}(g-a)^3 + \cdots
+\end{equation}
+
+We let \textit{a} = $g_0$, the amount of good where utility is at a maximum (more on this later). At this point, the first derivative term vanishes. Furthermore, if $U''(g_0)$ is mostly constant or if $g \approx g_0$, third-order and higher power terms of the series can be neglected.\footnote{Higher-power terms are also cumbersome because their second derivatives may violate the Law of Dimishing Marginal Utility. Only second-order quadratic polynomials have constant nonzero second derivatives.} So \textit{U(g)} can be rewritten as follows:
+
+\begin{equation}
+	U(g) \approx U(g_0) + \frac{U''(g_0)}{2}(g - g_0)^2,
+\end{equation}
+
+with $U(g_0)$ the maximum utility that could be gained from the good.
+
+The existence of a maximum utility underlies an additional assumption we make for this analysis: the utility must decrease after some point. This does not hold true for all goods. For instance, a bibliophile's utility will always increase for each additional book he/she purchases. Nevertheless, this assumption does hold true for many goods: maximum satisfaction happens when one eats enough to be full, and after a point goods becomes extraneous, if not bothersome in the space they take up.
+
+Now by the Law of Diminishing Marginal Utility, ${U}''(g_0) < 0$, so we introduce a new variable $D \equiv |U''(g_0)| > 0$, the \textit{diminishing factor} of the good. The diminshing factor determines the rate of utility decrease near maximum satisfaction of the good. Goods like foods tend to have a large diminishing factor; food cravings rapidly die down after one becomes full, and after awhile at a buffet, eating more food becomes rather gross and unhealthy. But aesthetic goods have a small diminishing factor: although they become awkwardly superfluous and difficult to store after awhile (thus decreasing the overall utility of a housewife who cares to make her house look nicely decorated), it takes a long time for that to happen. Substituting \textit{D} into the equation and invoking the Law of Diminishing Marginal Utility, we obtain the final equation of \textit{U(g)}:
+
+\begin{equation}
+	U(g) \approx U(g_0) - \frac{D}{2}(g - g_0)^2,
+\end{equation}
+
+which allows us to forget about potential sign issues when we do the analysis.
+
+\vspace{16pt}
+\textbf{Finding the ideal}---To get the most bang out of your buck, both cost and utility are factored in. Specifically, as alluded to earlier, we want to find a specific value of \textit{g} where the utility relative to the cost is maximized.\footnote{Implied here is another basic economic assumption: rational consumers will buy goods that will give them more utility than the equivalent cost forfeited in the purchase. We will not consider cases where this is not true.} This quantity we will call the net satisfaction \textit{S(g)}, which will be given by
+
+\begin{equation}
+	S(g) \equiv U(g) - C(g) = U(g_0) - \frac{D}{2}(g - g_0)^2 - Pg.
+\end{equation}
+
+To maximize the net satisfaction, we take the first derivative with respect to \textit{g} and set it equal to zero:
+
+\begin{equation}
+	\frac{dS}{dg} = -D(g - g_0) - P = 0.
+\end{equation}
+
+Moving terms not related to \textit{g} to the other side,
+
+\begin{equation}
+	g - g_0 = -\frac{P}{D}.
+\end{equation}
+
+Or,
+
+\begin{equation}
+	g = g_0 - \frac{P}{D},
+\end{equation}
+
+which gives the amount of the good needed to reach the ideal maximum satisfaction.
+
+\vspace{16pt}
+\textbf{Remarks}---Recall that we defined $D > 0$. Since \textit{P} is obviously also greater than zero, $g < g_0$. \textit{Maximum satisfaction always occurs before maximum utility.}  This makes intuitive sense since at some point, the Law of Diminishing Marginal Utility will force the rate of utility increase below the price of the good, which remains constant. This is unfortunate but the mathematics don't lie.
+
+However, as an intelligent consumer who has read this piece, you can make $g \rightarrow g_0$, by making \textit{D} as large as possible and \textit{P} as small as possible, such that the ratio $P/D \rightarrow 0$.
+
+We illustrate by considering a series of utility functions modeled by parabolas, with varying diminishing factors, on the same graph as the linear cost function:
+
+\begin{center}
+	\includegraphics[width=0.75\textwidth]{C:/Users/Jim/Pictures/utilityfns.png}
+	
+\end{center}
+\begin{quotation}
+	\noindent \textbf{Figure 1:} A series of utility functions modeled by parabolas, with varying diminishing factors. The cost function is modeled as the line $y=x$.
+\end{quotation}
+The orange parabola with the highest leading coefficient -- the highest dimishing factor -- has an absolute maximum very close its maximum relative to the cost function. On the other hand, the green with a very low diminishing factor has a large, noticeable gap between the two maxima. In fact, the green parabola doesn't reach its extremum until it crosses the cost line!
+
+So, to summarize, for this initial analysis (we will consider a more complicated case later), \textit{you get the most bang for your buck by buying cheaper goods which lose their utility value very fast.} The latter part may sound counterintuitive, but if you think about it, a commodity that loses utility value quickly will more likely preclude you from spending until reaching your utility maximum, at which point you've already gone over.
+
+\vspace{16pt}
+\textbf{Just how good is the approximation?}---(This section is mostly used to illustrate the validity of the 2nd order approximation.) (Not written. Yet.)
+
+\vspace{16pt}
+\textbf{A corrected model}---Some of you may have noticed a flaw with the original analysis: the greater the price, the better the quality of the good in general, and the greater the utility increase per unit of good. So while the original analysis was a good start and provided a satisfactory overview of the factors, we attempt to make a better model here. For the correction we introduce a \textit{quality factor} $q(P)$. The quality factor dictates how an increase in price influences the perceived quality of the product. 
+To simplify the mathematics, we assume that the quality of the good simply scales the utility the consumer gains from it. We let the new utility function $V(g,P)$ such that
+
+\begin{equation}
+	V(g,P) = q(P)U(g) = q(P)\left[U(g_0) - \frac{D}{2}(g-g_0)^2\right],
+\end{equation}
+
+and so, the net satisfaction becomes
+\begin{equation}
+	S = V - C = q(P)\left[U(g_0) - \frac{D}{2}(g-g_0)^2\right] - Pg.
+\end{equation}
+
+Again we try to maximize $S$, and again we do it holding a constant price.
+
+\begin{equation}
+	\frac{\partial S}{\partial g} = -q(P)D(g-g_0) - P = 0.
+\end{equation}
+
+And thus the maximum occurs at
+\begin{equation}
+	g = g_0 - \frac{P}{q(P)D},
+\end{equation}
+
+which, as you might remember, is very similar in form to Eq (8) with the exception of the extra $q(P)$ factor.
+
+\vspace{16pt}
+\textbf{\textit{P}, \textit{q(P)} interaction}---We are motivated now to figure out how $q(P)$ and $P$ work together to get you the most bang for your buck. From inspection, when $q(P)$ is proportional to $P$, the price dependence of maximal satisfaction disappears, in stark contrast to our earlier model.
+
+So our next step is to find when increasing the price \textit{hurts} bang per buck, and when it \textit{helps}. We do this by finding the rate of change of the amount of goods $g$ to reach maximal satisfaction, with respect to the price of the good $P$. When this rate of change is greater than 0, maximal satisfaction will be closer to maximal utility; when it is less than 0, maximal satisfaction will be farther away. Thus, we take the derivative of $g$ with respective to $P$, and let $q = q(P)$:
+
+\begin{equation}
+	\frac{dg}{dP} = - \frac{qD - PD \frac{dq}{dP}}{(qD)^2}.
+\end{equation}
+
+First we consider the case of $dg/dP < 0$, the case that follows our original model. Note that the denominator is always greater than zero, so Eq (13) reduces to (do not confuse $g$ and $q$!)
+
+\begin{equation}
+	\frac{dg}{dP} = - qD + PD \frac{dq}{dP} < 0.
+\end{equation}
+
+Rearranging, we get our answer for when $dg/dP < 0$:
+
+\begin{equation}
+	\frac{dq}{dP} < \frac{q}{P}.
+\end{equation}
+
+Or, perhaps written in more intuitive forms:
+
+\begin{equation}
+	\frac{dq}{q} < \frac{dP}{P};
+\end{equation}
+
+\begin{equation}
+	d(\ln q) < d(\ln P).
+\end{equation}
+
+We can now write down the answers for all cases:
+
+\begin{equation}
+	\frac{dg}{dP} < 0: \frac{dq}{q} < \frac{dP}{P};
+\end{equation}
+
+\begin{equation}
+	\frac{dg}{dP} > 0: \frac{dq}{q} > \frac{dP}{P};
+\end{equation}
+
+\begin{equation}
+	\frac{dg}{dP} = 0: \frac{dq}{q} = \frac{dP}{P}.
+\end{equation}
+
+If you think about it, none of these results ought to be surprising.
+
+\vspace{16pt}
+\textbf{Final remarks}---Eqs. (18)--(20) combine the price and the price-dependent quality factors, and they state: \textit{if the percent increase of quality is larger than the percent increase of price, maximum satisfaction gets closer to maximum utility for higher prices. If, on the other hand, the percent increase of quality is smaller than the percent increase of price, maximum satisfaction gets farther away for higher prices.} So higher prices are not \textit{always} bad, but again one needs to weigh the factors. And in different situations, the results may end up quite different, because of how you assess the quality.
+
+For instance, consider food. How much more quality will a fancy five-star restaurant give you, compared to *decent* family-owned joint? Probably a lot. But how much more expensive will it be? A LOT. But what if you're a food connoisseur? In that case, you will find much more quality from top-notch food than someone who is just eeking out a living. So you might want to opt for fancy restaurants more often than a college student--you'll get more bang for your buck that way, while for the college student, that may not be the case. 
+
+Now we take the same question and ask how hungry we are. Are we not very hungry at all, decently hungry, or starving? If you're not hungry, fancy food and decent food will taste about the same, and neither will taste too awesome. So the percent increase in perceived quality will not exceed the percent increase in price. Likewise, if you're starving, all food will taste amazing...and again your perception of quality will not increase a lot no matter how awesome the food truly is. The middle case is probably when you want to go to the fancier, pricier restaurants, because you will be able to best differentiate top-notch foods from marginal-quality foods. 
+
+In cases where your perception of quality changes very little with price--either from ignorance (no shame!) or the fact that the good is made the same everywhere--Eq (12) reduces to Eq (8). And then the cheaper item will always give you more bang for your buck, as we originally hypothesized.
+
+\end{document}
