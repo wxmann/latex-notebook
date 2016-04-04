@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+%\documentclass[x-pt]{beamer}
+%\documentclass[x-pt]{powerdot}
+%\usepackage{amseuler or euler}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{sectsty}
+\usepackage{cancel}
+\usepackage{float}
+\sectionfont{\large}
+\subsectionfont{\normalsize}
+\setlength{\parindent}{0cm}
+\geometry{top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm}
+\title{Path Optimization \\[0.5em] \large{Which route should you take to walk to class \\ when your campus is hilly?}}
+\author{Jim Tang}
+\begin{document}
+  \maketitle
+
+\textbf{Problem.} This is the proverbial question I ask daily: How can I minimize the time I take to walk to from my apartment to class/meeting/location X? What route should I take -- the route that looks longer on the map, but has less uphill regions, or the route that looks shorter on the map, but has more uphill regions? This is a question I attempt to answer here.
+
+\vspace{10pt} \textbf{Solution.} We begin by noting that for any arbitrary path $C$ in 3-dimensional space, the time $T$ needed to get to my destination is given by the path integral
+\begin{align} \label{eq:1-start}
+T = \int_C{\frac{ds}{v}}.
+\end{align}
+But $v$ varies along $C$. Specifically, what I notice is that I walk slower when the \textit{slope} of my path is steeply uphill. On the other hand, I walk faster when my path is slightly downhill. So for small slopes, I can make the educated ''guess' that my speed is given by
+\begin{align} \label{eq:2-vdef}
+v = v_{0} \left( 1 - \frac{dz}{d\rho} \right),
+\end{align}
+where $v_{0}$ is a constant, the speed at which I walk normally on a level curve, and $\rho$ is the arc length along the \textit{projection} of $C$ onto the x-y plane, which we will call $C'$. Now let me explain my notation a bit. $dz/d\rho$ is just the slope of $C$ with respect to the projection $C'$. We can think about this in terms of a directional derivative, that is:
+$$
+\frac{dz}{d\rho} \equiv \nabla z(x,y) \cdot d \mathbf{s'},
+$$
+where $d\mathbf{s'}$ is the line element along the path $C'$. This is just the height gradient in the direction along $C'$.
+
+\vspace{10pt} \textsc{Assumptions.} This is a good time to list our assumptions. One has already been listed above: \textit{the angle/grade of the slope is small}. Mathematically, this means that
+$$
+\frac{dz}{d\rho} \ll 1.
+$$
+This is almost always a good approximation. According to this source\footnote{\url{http://www.datapointed.net/2009/11/the-steeps-of-san-francisco/}} (see bottom of the link), the steepest grades in SF are around 40\% (0.4 radians or 23$^\circ$). That's the extreme extreme case, and even in that regime the assumption yields good approximations.
+
+\vspace{10pt} There is another assumption we have to make, and this is about walking. In general, you get tired if you've walked uphill for an hour. So $v$ \textit{ought} to depend on the history of your walking -- if you've walked a long distance or if you've walked pretty steeply uphill, your $v_{0}$ will decrease, and thus $v_{0} = v_{0}(dz/d\rho, t)$, and it is no longer a constant. For now we neglect those dependencies, which is OK because in my experience that as long as I am not sleep-deprived and I have not walked for more than a few minutes, $v_{0}$ is indeed constant. Equivalently, this means
+$$
+T \ll 1 \text{ hour}
+$$
+(like around 15 minutes or less, which is valid for walking within the confines of the UC Berkeley campus).
+
+\vspace{10pt} \textsc{The General Result.} Our next step is to put $ds$ in terms of $d\rho$. In general the 2-D path $S'$ is easily plotted on a 2-D map, whereas the 3-D path $S$ is not, so we prefer to use $d\rho$ if possible. We can split the horizontal and vertical components up, noting that
+\begin{align} \label{eq:3-dsdef}
+ds = \sqrt{d\rho^2 + dz ^2} = d\rho \sqrt{ 1+ \left( \frac{dz}{d\rho}\right)^2},
+\end{align}
+where $d\rho^2 = dx^2 + dy^2$ in the usual Cartesian basis. Plugging \eqref{eq:2-vdef} and \eqref{eq:3-dsdef} into \eqref{eq:1-start}, we obtain the general result
+\begin{align} \label{eq:4-genresult}
+\boxed{T = \int_{C'} \frac{1}{v_{0}} \frac{\sqrt{1+ (dz/d\rho)^2}} {1- dz/d\rho} \: d\rho}.
+\end{align}
+Of course, this is \textit{correct}, but it's not particularly illuminating. So let's see what we can do with this.
+
+\vspace{10pt}\textsc{Applying Approximations.} To make our next step easier, we define a new variable
+$$
+x \equiv \frac{dz}{d\rho}.
+$$
+We see that the integrand in \eqref{eq:4-genresult} is a product of two factors, one of which can be Taylor expanded in a binomial series, the other in a geometric series, since we have made the assumption that $x \ll 1$:
+\begin{align}
+\nonumber \text{integrand} &= (1+x^2)^{1/2}\left(\frac{1}{1-x}\right) \\[0.4em]
+ \nonumber & \simeq \left(1 + \frac{x^2}{2} + \cdots \right) (1 + x + x^2 + \cdots) \\[0.4em]
+ &\simeq 1 + x + \frac{3}{2}x^2 + \cancel{O(x^3)}, \label{eq:5-expand}
+\end{align}
+
+
+%and do some algebra on the integrand:
+%\begin{align*}
+%\frac{\sqrt{1+x^2}}{1-x} &= \sqrt{\frac{1+x^2}{(1-x)^2}} \\[0.5em]
+% &= \sqrt{\frac{1+x^2}{1+x^2 - 2x}} = \left( 1 - \frac{2x}{1+x^2} \right)^{-1/2}.
+%\end{align*}
+%Recall our assumption that $x \ll 1$. Thus, we can Taylor expand the root in a binomial series:
+%\begin{align*}
+%\left( 1 - \frac{2x}{1+x^2} \right)^{-1/2} &\simeq 1 - \frac{1}{2}\left(\frac{-2x}{1+x^2}\right) %+ \frac{3}{8}\left(\frac{-2x}{1+x^2}\right)^2 + \cdots \\[0.5em]
+%&= 1 + \frac{x}{1+x^2} + \frac{3x^2}{4(1+x^2)^2} + \cdots .
+%\end{align*}
+%We can then Taylor expand the fractions in \textit{that} result, via geometric series:
+%\begin{align} 
+%\nonumber  1 &+ x\left(\frac{1}{1+x^2}\right) + \frac{3x^2}{4}\left(\frac{1}{1+x^2}\right)^2 + \cdots \\[0.4em] 
+%\nonumber &\simeq 1 + x(1-x^2 + \cdots) + \frac{3x^2}{4}(1-x^2 + \cdots )^2 + \cdots \\[0.4em] 
+%&= 1 + x + \frac{3x^2}{4} + \cancel{O(x^3)}, \label{eq:5-expand}
+%\end{align}
+where we can neglect terms of order $x^3$ and higher since $x \ll 1$.
+
+\vspace{10pt} \textsc{The Final Answer.} Replacing the integrand in \eqref{eq:4-genresult} with the approximation in \eqref{eq:5-expand}, and puttting in $dz/d\rho$ back for $x$, we get
+\begin{align*}
+T \simeq \frac{1}{v_{0}} \int_{C'}1+\frac{dz}{d\rho}+\frac{3}{2}\left( \frac{dz}{d\rho} \right)^2 \: d\rho.
+\end{align*}
+Oh, but look! 
+\begin{itemize}
+\item The zeroth-order term (i.e, 1), when integrated, gives just $\rho / v_{0}$, or the time it takes to walk to my destination if my elevation change was 0 the entire time. We can define this as $T_{0}$. 
+\item The first-order term (i.e, $dz/d\rho$), when integrated, gives just $\Delta z / v_{0}$, or the time it takes to walk the distance equivalent to the elevation change between the endpoints of $S'$. We can define this as $T_{\Delta z}$. 
+\end{itemize}
+
+In summary,
+\begin{align} \label{eq:6-final}
+\boxed{T \simeq T_{0}+T_{\Delta z}+\frac{3}{2 v_{0}}\int_{C'}\left(\frac{dz}{d\rho}\right)^2\: d\rho},
+\end{align} with
+\begin{gather*} 
+	T_{0}\equiv \rho / v_{0}, \\[0.5em]
+	T_{\Delta z} \equiv \Delta z / v_{0}.
+\end{gather*}
+And this is the most useful result.
+
+\vspace{10pt} \textsc{Upshot.} Note that $T_{\Delta z}$ is a constant, since $\Delta z$ is a constant (because the endpoints are fixed). Since the second-order term is fairly small, when your campus isn't \textit{that} hilly, you should always take the route that minimizes the distance you travel. Don't take any wavy paths to avoid hills; just take the direct path to minimize $\rho$. However, when second-order contributions become significant, you may have to weigh that contribution relative to $T_{0}$. In general, the hills around my campus have $<$10\% grade (around 0.1 radians or 6$^\circ$ slope). Second-order terms thus are pretty small.
+
+\vspace{10pt} \textbf{Application Example.} Consider a conical, gently-sloping hill. You have to get to the point on the other side of the hill. 
+\end{document}
