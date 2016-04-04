@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{sectsty}
+\usepackage{cancel}
+\usepackage{float}
+\usepackage{placeins}
+\sectionfont{\large}
+\subsectionfont{\normalsize}
+\setlength{\parindent}{0cm}
+\geometry{top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm}
+
+\title{When should I add my milk to my coffee?}
+\author{Jim Tang}
+\begin{document}
+  \maketitle
+	
+In this article I plan to answer the question: for a warmer drink, should I add cold milk to my hot coffee immediately, and wait for the mixture to cool, or should I wait for the hot coffee to cool, and then add the cold milk? This question was inspired by \href{http://www.reddit.com/r/askscience/comments/2zwzf2/will_my_cup_of_100c_tea_cool_faster_if_i_let_it/}{this reddit thread}.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{How coffee cools}
+
+When a hot drink is left out to cool down, heat is transferred via convection between the drink and the environment. This can be described quantitatively by Newton's law of cooling
+\begin{equation}
+\frac{dQ}{dt} = \kappa A (T - T_{\text{env}}) \label{eq:newtoncoolinglaw},
+\end{equation}
+where $\kappa$ is the heat transfer coefficient, $A$ is the exposed surface area where heat can be freely exchanged, $dQ/dt$ is the rate of heat loss, and $T$ describes temperature. To solve this equation, we first relate temperature to the heat loss using Newton's Law of Cooling:
+\begin{equation}
+\frac{dQ}{dt} = -C\frac{dT}{dt} \label{eq:heatcapacity},
+\end{equation}
+where $C$     is the heat capacity of the liquid. Substituting \eqref{eq:heatcapacity} into \eqref{eq:newtoncoolinglaw}, we have
+\begin{equation}
+\frac{dT}{dt} = -\frac{\kappa A}{C} (T - T_{\text{env}}) \label{eq:inT}.
+\end{equation}
+With the \textbf{assumption that the ambient environment temperatures does not change}, if we let
+\begin{equation}
+\tau \equiv T - T_{\text{env}} \Rightarrow \frac{dT}{dt} \equiv \frac{d\tau}{dt} \label{eq:tau-sub}
+\end{equation}
+and
+\begin{equation}
+r \equiv \frac{\kappa A}{C}, \label{eq:r-sub}
+\end{equation}
+\eqref{eq:inT} becomes
+\begin{equation*}
+\frac{d\tau}{dt} = -r\tau,
+\end{equation*}
+easily solved to yield
+\begin{equation}
+\tau = \tau_{0} e^{-rt} \label{eq:newtoncoolinglaw-soln},
+\end{equation}
+where $\tau_{0}$ is the initial temperature difference between the coffee and the environment at $t=0$. Fairly straightforward exponential behavior.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Interaction between coffee and milk}
+
+When two liquids of different temperature are mixed, the heat is completely transferred from the hotter (coffee) to the colder liquid (milk). In other words,
+\[
+Q_{\text{out,}c} = Q_{\text{in,}m},
+\]
+where the $c$ and $m$ subscripts indicate coffee and milk, respectively. However, as \eqref{eq:heatcapacity} implied,
+\[
+Q = C\Delta T = mc\Delta T,
+\]
+where $c$ is the heat capacity \textit{per unit mass}. With that said, we have
+\begin{equation}
+-m_{c} c_{c} \Delta T_{c} = m_{m} c_{m} \Delta T_{m} \label{eq:qmcdeltaT}.
+\end{equation}
+\textbf{Assumption: the heat capacity of milk and coffee, both primarily composed of water, are about the same.} Under that assumption, Equation \eqref{eq:qmcdeltaT} becomes
+\[
+-\frac{\Delta T_{c}}{\Delta T_{m}} = \frac{m_{m}}{m_{c}}.
+\]
+\textbf{Assumption: the mass density of milk and coffee are about the same.} With that, we can substitute the mass $m$ for volume $V$:
+\[
+-\frac{\Delta T_{c}}{\Delta T_{m}} = -\frac{T_{c,f} - T_{c,i}}{T_{m,f} - T_{m,i}} = \frac{V_{m}}{V_{c}},
+\]
+where we have taken the liberty to explicitly write out the deltas in terms of initials $i$ and finals $f$. However, $T_{c,f} = T_{m,f}$ as they the coffee and milk are one liquid now, so really, we end up with
+\begin{equation}
+\frac{T_{c,f} - T_{c,i}}{T_{c,f} - T_{m,i}} = -\frac{V_{m}}{V_{c}}. \label{eq:Tmid}
+\end{equation}
+From here, we're going to focus on the temperature drop as a function of the initial temperatures and volumes of the milk and coffee. We're going to do some simple algebraic manipulation to get \eqref{eq:Tmid} in a form we'd like. We start by subtracting 1 on both sides,
+\begin{align*}
+\frac{\cancel{T_{c,f}} - T_{c,i} - (\cancel{T_{c,f}} - T_{m,i})}{T_{c,f} - T_{m,i}} &= -\frac{V_{m}}{V_{c}} - 1 \\
+T_{c,f} - T_{m,i} &= -\frac{T_{m,i} - T_{c,i}}{1 + V_{m}/V_{c}} 
+\end{align*}
+and then pulling a little hat trick
+\begin{align}
+T_{c,f} \boxed{- T_{c,i} + T_{c,i}} - T_{m,i} &= -\frac{T_{m,i} - T_{c,i}}{1 + V_{m}/V_{c}} \nonumber \\
+\Rightarrow T_{c,i} - T_{c,f} &= (T_{c,i} - T_{m,i})\left(1 - \frac{1}{1+V_{m}/V_{c}}\right). \label{eq:tempdrop}
+\end{align}
+Equation \eqref{eq:tempdrop} is what we were looking for: the temperature drop on the LHS as an \textit{explicit} function of the initial temperatures and volumes of the coffee and milk.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Combining the slow cooling and the milk}
+
+Suppose that we drop the milk in at time $t = t_{m}$. Based on our solution to Newton's law of cooling \eqref{eq:newtoncoolinglaw-soln}, our equation for $\tau$ would look like this:
+\begin{equation}
+\tau(t) = 
+\begin{cases}
+\tau_{0} e^{-rt} & \text{if } t \leq t_{m}\\
+\tau_{0}^{'} e^{-r(t-t_{m})}  & \text{if } t > t_{m}
+\end{cases},
+\end{equation}
+%\begin{displaymath}
+%\tau(t) = \left\{\begin{array}{lr}
+       %\tau_{0} e^{-rt} &: t \leq t_{m}\\
+       %\tau_{0}^{'} e^{-r(t-t_{m})}  &: t > t_{m}
+     %\end{array}
+		%\right.
+%\end{displaymath}
+where $\tau_{0}^{'}$ is the coffee temperature relative to environment right after the milk is added. \textbf{Assumptions: }
+\begin{itemize}
+	\item The addition of the milk, and the subsequent equilibration of temperature within the milk-coffee mixture, is very quick compared to the time we wait for the coffee and the time it takes for coffee to cool on its own;
+	\item The coefficient $r$ in the exponential is constant. Based on Equation \eqref{eq:r-sub}, this implies that:
+		\begin{enumerate}
+			\item The addition doesn't change the heat capacity of the mixture;  
+			\item The addition doesn't change the surface area exposed to the environment, which is plausible if a cylindrical container holding the coffee were open at the top. (So like, a mug...) This might also be the case if the mug has a large cross-sectional area and the volume of milk added is small compared to the volume of coffee (again, not an uncommon use case).
+		\end{enumerate}
+\end{itemize}
+
+In that case, we can start by finding $\tau_{0}^{'}$. Observe that
+\begin{equation}
+\tau_{0}^{'} = \tau_{0} e^{-rt_{m}} - \Delta \tau, \label{eq:tau0prime}
+\end{equation}
+where $\Delta \tau$ is the drop in (relative) temperature of the coffee due to the milk. From Equation \eqref{eq:tau-sub} and \eqref{eq:tempdrop}, 
+\begin{align*}
+\Delta \tau = \Delta T &= T_{c,i} - T_{f,i}  \\
+&= (T_{c,i} - T_{m,i})\left(1-\frac{1}{1+V_{m}/V_{c}}\right) \\
+&= (\tau(t=t_{m})- \tau_{m})\left(1-\frac{1}{1+V_{m}/V_{c}}\right) \\
+&= (\tau_{0}e^{-rt_{m}}  - \tau_{m})\left(1-\frac{1}{1+V_{m}/V_{c}}\right) 
+\end{align*}
+where between our second and third steps, we have opted to exchange $T$ with $\tau$, and dropped the subscript $i$. Also in that step we realize that the initial coffee temperature in \eqref{eq:tempdrop} is just the temperature right before pouring the milk, $\tau(t=t_{m})$. Substituting that result into \eqref{eq:tau0prime} ultimately yields
+\[
+\tau_{0}^{'} = \tau_{0}e^{-rt_{m}}\left(\frac{1}{1+V_{m}/V_{c}}\right)  + \tau_{m}\left(\frac{V_{m}/V_{c}}{1+V_{m}/V_{c}}\right). \label{eq:tau0primefin}
+\]
+and thus, for $t > t_{m}$
+\begin{align}
+\tau(t) &= \left(\tau_{0}e^{-rt_{m}}\frac{1}{1+V_{m}/V_{c}} + \tau_{m}\frac{V_{m}/V_{c}}{1+V_{m}/V_{c}}\right)e^{-r(t - t_{m})} \nonumber \\[0.4em]
+&= \tau_{0}e^{-rt}\frac{1}{1+V_{m}/V_{c}} + \tau_{m}e^{-r(t - t_{m})}\frac{V_{m}/V_{c}}{1+V_{m}/V_{c}}. \label{eq:tau_t_final}
+\end{align}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Adding the coffee earlier vs. later}
+
+This question is essentially asking how $\tau(t)$ varies with $\tau_{m}$ in Equation \eqref{eq:tau_t_final}. Let
+\begin{gather}
+\tau_{e}(t) = \tau(t; t_{m} = t_{0}) \\
+\tau_{\ell}(t) = \tau(t; t_{m} = t_{0} + \delta),
+\end{gather}
+where $\delta > 0$ and the $e$ and $\ell$ subscripts denote early and late, respectively. From this,
+\begin{gather}
+\tau_{e}(t) - \tau_{\ell}(t) = \cancel{\tau_{0}\frac{e^{-rt}}{1+V_{m}/V_{c}}} + \tau_{m}e^{-r(t - t_{0})}\frac{V_{m}/V_{c}}{1+V_{m}/V_{c}} - \left(\tau_{0}\cancel{\frac{e^{-rt}}{1+V_{m}/V_{c}}} + \tau_{m}e^{-r(t - (t_{0} +\delta))}\frac{V_{m}/V_{c}}{1+V_{m}/V_{c}}\right) \nonumber \\[0.4em]
+= \tau_{m} \frac{V_{m}/V_{c}}{1+ V_{m}/V_{c}}e^{-r(t-t_{0})}(1-e^{r \delta}).
+\end{gather}
+We are essentially \textit{done} here. It is evident that
+\begin{itemize}
+\item $\frac{V_{m}/V_{c}}{1+ V_{m}/V_{c}}e^{-r(t-t_{0})} > 0$, as $t>t_{0}$ at all times;
+\item $1-e^{r \delta} < 0$, as $\delta > 0$.
+\end{itemize}
+And as a result,
+\begin{equation}
+\tau_{e}(t) - \tau_{\ell}(t) 
+\begin{cases}
+> 0 & \text{if } \tau_{m} < 0 \\
+= 0 & \text{if } \tau_{m} = 0 \\
+< 0 & \text{if } \tau_{m} > 0
+\end{cases}. \label{eq:conditions}
+\end{equation}
+
+Recall that $\tau_{m}$ is the difference between the milk and ambient temperatures. \textbf{Upshot: 
+\begin{itemize}
+\item If the milk is warmer than the surrounding environment (for example, you microwaved it), adding it later will ensure a warmer coffee mixture.
+\item If the milk is at the same temperature as the surrounding environment (you left it out in the open for awhile), it doesn't matter.
+\item If the milk is cooler than the surrounding environment (you just took it out a fridge), adding it earlier will ensure a warmer coffee mixture.
+\end{itemize}}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Remarks}
+
+Let's look at Equation \eqref{eq:tau_t_final} more closely, and specifically the two terms. Examining it closely, one notices the result is equivalent to a \textit{weighted average} of the temperatures of the coffee equilibrating from $t=0$ and the milk equilibrating from $t=t_{m}$. Put it another way, we get the same answer for $\tau(t)$ from our mixture as we would if we left the original amount of coffee out starting from $t=0$, and the milk starting from $t=t_{m}$, and taking a weighted sum of the two temperatures. For this reason, it is not surprising that \eqref{eq:conditions} holds true: if we left cold milk out, it would warm up and reduce the contribution of a temperature hit in the weighted sum; if we left warm milk out, it would cool down, thus increasing the temperature hit. At least, that's how to think about it \textit{mathematically}.
+
+\vspace{10pt}
+But how about \textit{physically}? For this, we actually have to look back at Newton's cooling law \eqref{eq:newtoncoolinglaw}. Initially the coffee is presumably very hot compared to the ambient environment, so it transfers heat at a very fast rate. By cooling it off a bit with cold milk in the beginning, we take a hit up-front but the cooling rate slows down compared to what it would have been otherwise. So it pays off late. On the other hand, if we dump warm milk, we \textit{don't} reduce the heat transfer all that much. Instead, if we waited, the coffee may have cooled enough so the milk doesn't really affect the temperature as much. 
+
+\vspace{10pt}
+The intersection of these two explanations lies in thinking in molecular terms. 
+
+
+\end{document}
