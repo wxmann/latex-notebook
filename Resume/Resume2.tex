@@ -1,0 +1,126 @@
+\documentclass[9pt]{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{sectsty}
+\usepackage{titlesec}
+\usepackage{enumitem}
+%\usepackage{anyfontsize}
+
+\setlength{\parindent}{0cm}
+\geometry{top=1.2cm,bottom=1.2cm,left=1.2cm,right=1.2cm}
+\renewcommand{\familydefault}{\sfdefault}
+\pagenumbering{gobble}
+
+%% MACROS FOR HEADER %%
+\newcommand{\myname}{Jim Tang}
+\newcommand{\myaddress}{2590 Oak Rd. \#245, Walnut Creek, CA 94597}
+\newcommand{\myphone}{(858) 225-9938}
+\newcommand{\myemail}{jim.z.tang@gmail.com}
+
+\newcommand{\resumeHeader}{\begin{center}
+	{\LARGE \textbf{\myname}} 
+	\vspace{3pt} \\
+	\myaddress \\ \myphone \\ \myemail
+	\end{center}}
+
+%% MACROS FOR EXPERIENCE SECTION %%
+%\newcommand{\company}[1]{\vspace{3pt} \textbf{#1}  \vspace{4pt}}
+%\newcommand{\titleAtCompany}[2]{\textbf{#1}: \textit{#2}}
+\newcommand{\jobPosition}[1]{\vspace{2pt} #1}
+\newcommand{\jobSummary}[1]{\vspace{2pt} \\ #1}
+\newenvironment{jobHighlights}
+	{\vspace{2pt}\begin{itemize}[noitemsep,nolistsep]}{\end{itemize} \vspace{6pt}}
+	
+%% SECTION DIVIDER %%	
+\titleformat{\section}
+  {\normalfont\bfseries}{\thesection}{}{}[{\titlerule[0.4pt]}]
+\titlespacing*{\section}{0pt}{15pt}{6pt}
+
+
+%\titleformat{\section}[drop]
+%{\normalfont\bfseries}
+%{\thesection.}{0.5em}{}
+ 
+%\titlespacing{\section}{12pc}{1.5ex plus .1ex minus .2ex}{1pc}
+	
+%\titleformat{\subsection}
+  %{\large\bfseries}{\thesubsection}{}{}
+%%\titlespacing*{\subsection}{0pt}{10pt}{0pt}
+%
+%\titleformat{\subsubsection}
+  %{\normalfont\bfseries}{\thesubsubsection}{}{}
+
+
+\begin{document}
+
+\resumeHeader
+
+\section*{SUMMARY}
+Self-motivated, inquisitive, and hard-working candidate looking for junior development position. Has QA testing experience, and has self-taught multiple languages. Holds strong communication skills, with demonstrated effectiveness in working with and leading people. Eager to solve problems.
+	
+%\section*{OBJECTIVE}
+%To obtain an junior software development position.
+
+\section*{SKILLS}
+\textbf{Languages:} Java, Python, XML, SQL, R, HTML, CSS, JavaScript, \LaTeX
+\\ \textbf{Application Servers:} Tomcat, WebSphere
+\\ \textbf{Frameworks and Technologies:} RESTful Services, JUnit, JDBC, Dagger, Spring, Oracle, Android SDK, OKHttp, XStream, JAX-B, Regex, OOP, Design Patterns, Java concurrency, Robot Framework
+\\ \textbf{Methodologies:} Agile/Scrum, Kanban, TDD
+\\ \textbf{Tools:} IntelliJ, Eclipse, Maven, Oracle SQL Developer, Android Studio, Jenkins CI, Perforce, Git, Rally
+
+\section*{EDUCATION}
+\textbf{University of California, Berkeley -- B.S. in Engineering Physics}
+\\ Class of 2013; GPA: 3.7
+
+\section*{EXPERIENCE}
+
+\jobPosition{\textbf{Moody's Analytics: Assistant Director, Quality Assurance Engineering} | \textit{June 2015 -- Current}}
+\jobSummary{Improved the reliability and speed of automated tests. Troubleshooted client issues with external implementation teams. Created tools for implementation teams. On-boarded and mentored new QA engineers.}
+\begin{jobHighlights}
+	\item Added a feature in the tests to clean up after successful runs, automating a formerly manual step.
+	\item Wrote a script to identify keyword function usage in tests using \textbf{regular expressions}, allowing team members to refactor test code more confidently.
+	\item Collaborated with team members to identify \textbf{Smoke and Acceptance test} suites that reduced feedback cycle time from two hours to 15 minutes.
+\end{jobHighlights}
+
+\jobPosition{\textbf{Moody's Analytics: Quality Assurance Engineer} | \textit{June 2013 -- June 2015}}
+\jobSummary{Developed and maintained test automation codebase written in Java. Added tests to test suite developed with Robot Framework. Wrote test plans with collaboration between product managers and developers.}
+\begin{jobHighlights}
+	\item Expanded results validation to log column and row of mismatches, saving hours of debugging per test failure.
+	\item Added test keywords to read and write data to and from the backend database directly using \textbf{JDBC}.
+	\item Leveraged \textbf{Java concurrency API} to run processes in parallel, enabling concurrency testing and parallelizing test setup steps.
+	\item Wrote scripts in \textbf{R and Python} to automate generating test data and validating results, saving an hour per test data set.
+	\item Won \textbf{first prize in Moody's Analytics hackathon} for a data generation and validation tool in Java.
+	\item Refactored test automation code to use open-source tools such as \textbf{OKHttp client, Dagger dependency injection, and XStream XML unmarshalling} for testing \textbf{REST services}.
+\end{jobHighlights}
+
+%\titleAtCompany{Intern}{June 2012 -- Sept 2012}
+%\begin{jobHighlights}
+	%\item Developed a prototype for UI automation using \textbf{TestComplete and RIATest tools}.
+	%\item Deployed daily builds to \textbf{Weblogic, WebSphere, JBoss, and Tomcat application servers}.
+	%\item Added a backend test automation keyword to toggle calculation parameters.
+%\end{jobHighlights}
+
+
+\section*{PROJECTS}
+
+\jobPosition{\textbf{MyShare App,} \textit{https://github.com/wxmann/myshare}}
+\jobSummary{Android app to calculate and save split bills.}
+\begin{jobHighlights}
+	\item Used Android Studio to develop, learned Android development.
+\end{jobHighlights}
+
+\jobPosition{\textbf{Python data generator,} \textit{https://github.com/wxmann/data-generator}}
+\jobSummary{Migrated from Java (Hackathon project) to Python.}
+\begin{jobHighlights}
+	\item Strengthened Python development skills.
+\end{jobHighlights}
+
+\jobPosition{\textbf{Automated image saver,} \textit{https://github.com/wxmann/FileSaver}}
+\jobSummary{Saves dynamic images from websites at periodic time intervals, or bulk saves all image links from a URL.}
+\begin{jobHighlights}
+	\item Learned Java 8 features.
+\end{jobHighlights}
+
+
+\end{document}
