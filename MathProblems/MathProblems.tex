@@ -1,0 +1,377 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{sectsty}
+\usepackage{cancel}
+\sectionfont{\large}
+\subsectionfont{\normalsize}
+\setlength{\parindent}{0cm}
+\geometry{top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm}
+\begin{document}
+
+  \begin{center} {\LARGE\textbf{Some Math and Physics Problems}} \end{center}
+  \begin{center} {\large Jim Tang} \end{center}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{The Beauty of the Rain}
+One of the things that has always captivated me about the rain is the \textit{ping}ing sound it makes when it hits a surface, such as an umbrella or a rooftop. Over the years, I've listened more carefully to the rate of \textit{ping}ing during a rainstorm. It obviously depends on how fast the rain is falling, but recently I've noticed other dependencies. For instance, it seems to increase whenever the wind blows. But is this really true, or am I just imagining that the rain is falling heavier? So I investigate.
+
+\subsection[Problem Statement]{} \textsc{\underline{Problem Statement}}. \textit{How does the rate of rain hitting my umbrella vary with the windspeed of the ambient air?}
+
+\subsection[Approach]{} \textsc{\underline{Approach}}. Every \textit{ping} is a raindrop hitting my umbrella, and so the rate of \textit{ping}ing is the number of raindrops hitting my umbrella per unit time. It is evident that this latter quantity is simply the \textit{flux} or \textit{flow} of raindrops across the area of my umbrella. In a fluid, the \textit{mass} flowrate is dependent on the fluid's density $\rho$, velocity \textbf{u}, and the unit normal $\hat{\textbf{n}}$ to the surface \textit{S}. The analog in electromagnetism is field line density and field strength for the former two quantities. If we consider raindrop streaks as a visualization of a streamline or an electric field, then
+\begin{align*}
+\rho &= \text{raindrop density (how \textit{hard} the rain is falling)} \\
+\textbf{u} &= \text{raindrop velocity} \\
+S &= \text{the umbrella surface} 
+\end{align*}
+In particular, \textbf{u} will be the parameter that will have a wind dependence, and a rain speed dependence. The surface and the raindrop density are given constants, as well as the rain speed.
+
+\subsection[Solution]{} \textsc{\underline{Solution}}. The flux $\Phi$ is given by the following equation:
+\begin{align} \label{eq1}
+\Phi = \int_S \rho\textbf{u} \cdot \hat{\textbf{n}}\; dS.
+\end{align}
+Now this is where the wind part of the equation comes in. Let \textbf{u}$_o$ be the velocity of a raindrop without the wind (equivalent to the velocity of a raindrop in the reference frame moving with the wind), and the \textbf{u}$_w$ be the velocity of the wind with respect to the stationary observer. We can use the formula for relative motion to approximate\footnote{This is only approximate because the raindrop is hardly rigid and is affected by many other forces.} the resultant velocity \textbf{u}$_r$ of the raindrop is:
+\begin{align} \label{eq2}
+\textbf{u}_r \cong \textbf{u}_o + \textbf{u}_w.
+\end{align}
+Now here, we also make an assumption that the wind direction and speed, as well as the rain direction and speed, are all constant with space and time. With \textbf{u} = \textbf{u}$_r$ given in \eqref{eq2}, \eqref{eq1} becomes
+\begin{align} \label{eq3}
+\Phi \cong \int_S \rho\textbf{u}_o \cdot \hat{\textbf{n}}\; dS + \int_S \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS = \Phi_{\text{o}} + \int_S \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS,
+\end{align}
+where $\Phi_\text{o}$ is the flux of the rain \textit{without} through the umbrella in perfectly still air, given by the integral for \textbf{u}$_o$. This is a constant for a given $\rho, \textbf{u}_o$, and $S$.
+
+\vspace{10pt} To evaluate the surface integral for \textbf{u}$_w$, we refer back to the analogy in the approach section of this problem and visualize the streamlines highlighted by the falling raindrops. Consider a closed, bounded surface. Every streamline that enters this surface must exit it, because as we stated, \textbf{u}$_w$ is constant in space and time. In our problem, it will be advantageous to consider a surface \textit{S'} bounded at the top by the umbrella, and at the bottom by the \textit{horizontal projection} of the umbrella. So,
+\begin{subequations}
+\begin{align}
+0 &= \oint_{S'} \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS'  \label{eq4a} \\ 
+&= \int_{\text{top}} \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS'_{\text{top}} + \int_{\text{bottom}} \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS'_{\text{bottom}} \label{eq4b}. 
+\end{align}
+\end{subequations}
+The second integral in \eqref{eq4b} is easy to evaluate, since we are just dealing with a flat horizontal surface (the projection of the umbrella) and a constant wind velocity vector. It is just the product of the magnitude of the wind velocity component perpendicular to the projection and the area of the projection $A^*$:
+\begin{align} \label{eq5}
+\int_{\text{bottom}} \rho\textbf{u} \cdot \hat{\textbf{n}}\; dS'_{\text{bottom}} = \rho u_w A^* \sin{\alpha},
+\end{align}
+where $u_w = |\textbf{u}_w|$ and $\alpha$ is the angle between the horizontal and the direction of the wind velocity vector. Meanwhile, the first integral in \eqref{eq4b} is, of course, what we want: the flux through the umbrella.
+\begin{align} \label{eq6}
+\int_{\text{top}} \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS'_{\text{top}} = \int_S \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS.
+\end{align}
+Comparing the \textbf{magnitudes} of the fluxes (which is all we care about), and omitting the magnitude symbols, we see that
+\begin{align} \label{eq7}
+\int_S \rho\textbf{u}_w \cdot \hat{\textbf{n}}\; dS = \rho u_w A^* \sin{\alpha}.
+\end{align}
+Plugging \eqref{eq7} into \eqref{eq3},
+\begin{align} \label{eq8}
+\boxed{\Phi \cong \Phi_{\text{o}} + \rho u_w A^* \sin{\alpha}},
+\end{align}
+and so the flux through the umbrella $\Phi$ varies \textit{linearly} with the windspeed $u_w$.
+
+\vspace{10pt} We can do a similar analysis with $\Phi_{\text{o}}$, and find
+\begin{align} \label{eq9}
+\Phi_{\text{o}} = \rho u_o A^*,
+\end{align}
+where $u_o$ is the speed of the rain. Thus \eqref{eq8} can also be written as
+\begin{align} \label{eq10}
+\boxed{\Phi \cong \rho A^* (u_o + u_w \sin{\alpha})}.
+\end{align}
+%For $\rho \approx 100$ raindrops/m$^3$, $A^* \approx 1$ m$^2$, $u_0 \approx 10$ m/s, $u_w \approx 5$ m/s and $\sin{\alpha} \approx 1/5$ the flux is about 
+
+\subsection[Remarks]{} \textsc{\underline{Remarks}}. About signs: $\alpha$ is positive \textit{below} the horizontal axis. One can see that if the angle is made above the axis, the flux is reduced. Note that our results \eqref{eq8} and \eqref{eq10} are valid for \textit{any} wind direction because of the radial symmetry of the umbrella. In subsequent problems this may not be the case.
+
+\vspace{10pt} The assumptions we made to calculate the surface integral, in \eqref{eq4a}, do not hold if the rain is not steady - if it is increasing or decreasing in strength. Additionally the equality in \eqref{eq7} does not hold at certain large angles. Let the umbrella assume the shape of a part of hemisphere cut out below the circle $r = R \sin \theta$, where $\theta$ is the polar angle in spherical coordinates and \textit{R} is the radius of the imaginary hemisphere, which we can take as the length of the umbrella handle. Now, if we could make a tangent plane to the umbrella surface at the given $\theta$, it would make an angle $\beta$ with the horizontal. It is easily shown with geometry that $\beta = \theta$. 
+
+\vspace{10pt} This angle $\beta$ is of critical importance. If the angle \textbf{u}$_r$ makes with the horizontal, we'll say $\phi$, is less than $\beta$, \eqref{eq7} does not hold as some `streamline's that hit the top umbrella surface will also leave through top umbrella surface. Thus the flux through the top would not equal the flux through the imaginary bottom surface. If we require $\phi \geq \beta$, then $\tan \phi \geq \tan \beta \geq \sin \beta$. So in terms of $u_o, u_w, \alpha, r$, and \textit{R}, the expression that must hold for \eqref{eq7} to hold is
+\begin{gather} 
+\tan \phi = \frac{u_o + u_w \sin \alpha}{u_w \cos \alpha} \geq \sin \beta = \sin \theta = \frac{r}{R}, \text{ or} \nonumber \\[0.4em]
+\frac{1}{\cos \alpha} \left(\frac{u_o}{u_w} + \sin \alpha \right) \geq \frac{r}{R}, \label{eq10b}
+%\frac{u_o + u_w \sin \alpha}{\sqrt{(u_o + u_w \sin \alpha)^2 + (u_w \cos \alpha)^2}} = \frac{u_o + u_w \sin \alpha}{\sqrt{u_o^2 + 2 u_o u_w \sin \alpha + u_w^2}} \geq \frac{r}{R} = \sin \theta = \sin \beta.
+\end{gather}
+
+with $0 \leq \phi \leq \pi/2$. This is not particularly illuminating, but it gives a satisfactory test for valid use of \eqref{eq8} and \eqref{eq10} given $\alpha$, \textit{R, r}, and $u_o / u_w$.
+%but we can test the condition with $u_o \gg u_w$:
+%\begin{align}
+%\frac{u_o + u_w \sin \alpha}{\sqrt{u_o^2 + 2 u_o u_w \sin \alpha + u_w^2}} &\approx \frac{u_o + u_w \sin \alpha}{\sqrt{u_o^2 + 2 u_o u_w \sin \alpha}} = \frac{u_o + u_w \sin \alpha}{u_o \sqrt{1 + 2 \frac{u_w}{u_o} \sin \alpha}} \nonumber \\[0.3em]
+%&\approx \frac{u_o + u_w \sin \alpha}{u_o \left(1 + \frac{u_w}{u_o} \sin \alpha \right)} = \frac{u_o + u_w \sin \alpha}{u_o + u_w \sin \alpha} \nonumber \\[0.4em]
+%&= 1 \geq \frac{r}{R}. \label{eq10c}
+%\end{align}
+
+%Since $r/R = \sin \theta \leq 1$, the inequality in \eqref{eq10c} always holds. This should be expected for $u_o \gg u_w$ since the rain is nearly vertical, and if the rain is vertical, every drop of rain that goes through the umbrella surface will, so to speak, also go through the disk that caps the bottom.
+
+\subsection[Extensions]{} \textsc{\underline{Extensions}}. We can extend this problem to other physical situations. 
+
+\vspace{10pt} a) Consider a car driving in rain with a speed \textit{V} horizontally. Its windshield (that has an area \textit{A}) makes a constant angle with the horizontal $\beta$. As in the first problem, the rain is falling at a vertical rate $u_o$ and the wind is blowing in the direction of the car with a speed $u_w$ at an angle $\alpha$ below the horizontal. Using the same principles as the umbrella problem, it can be shown that the flux $\Phi$ through the windshield is
+\begin{align} \label{eq11}
+\Phi = \rho[(u_o + u_w \sin{\alpha})A\cos{\beta} + (V + u_w \cos{\alpha})A\sin{\beta}].
+\end{align}
+If we again make $\Phi_{\text{o}} \equiv \rho u_o A \cos{\beta}$ the flux without any wind or windshield motion:
+\begin{align} \label{eq12}
+\Phi &= \Phi_{\text{o}} + \rho VA\sin{\beta} + \rho u_w A (\sin{\alpha}\cos{\beta} + \cos{\alpha}\sin{\beta}) \nonumber \\ 
+&= \Phi_{\text{o}} + \rho A [V\sin{\beta} + u_w \sin{(\alpha + \beta)}].
+\end{align}
+Note again that the perceived intensity (i.e. the flux) of the rainfall increases linearly with both \textit{V} and $u_w$. That's why it always seems to rain harder when you're on the freeway.
+
+\vspace{10pt} b) \textit{If you get caught in the rain, should you run as fast as you can, or should you stroll slowly?} Let's model `you' as a rectangular prism with a vertical area (normal pointing up-down) $A_v$ and a horizontal area (normal pointing left-right) $A_h$. The other parameters $\rho, u_w, u_o, \alpha$ are as defined in the umbrella problem, and \textit{V} is the speed of your translational motion (i.e. how fast you run/walk/etc). %We consider cases of the wind blowing towards you from the front (just like in the car problem).
+
+\vspace{10pt} This problem is fundamentally the same as Problem (a) (Why?) with $A_h = A \sin{\beta}$ and $A_v = A \cos{\beta}$. The total amount of raindrops \textit{N} you are exposed to is just the flux multiplied by the amount of time you are exposed to the rain, $\Phi t$. So,
+\begin{align} 
+N &= t\rho[(u_o + u_w \sin{\alpha})A_v + (V + u_w \cos{\alpha})A_h] \nonumber \\
+&= t \rho [u_o A_v + V A_h + u_w (A_v \sin{\alpha} + A_h \cos{\alpha})] \label{eq13}\\
+&= t \rho (u_o A_v + V A_h).    \text{ (for $u_w = 0$)}\label{eq14}
+\end{align}
+This time we really don't care as much about the windspeed and angle, so we set $u_w = 0$ between \eqref{eq13} and \eqref{eq14}. Next, note that $t = d/V$, where \textit{d} is the distance you have to run to reach your destination. So,
+\begin{align} \label{eq15}
+N = d \rho \left( \frac{u_o A_v}{V} + A_h \right).
+\end{align}
+Since $N \propto 1/V$, you can reduce the soaking you get by running, rather than walking, through the rain. This pretty much supports the intuitions we have.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Oscillations}
+Sometimes, if I walk while heavily thinking to myself, I will naturally start swaying back and forth. In other words, I oscillate, and if I suddenly come to consiciousness, I start thinking how much extra distance I walked. The shortest distance between two points is always a straight line, and a sinuosoidal curve is \textit{not} a straight line. Let's quantify how much extra distance I walked.
+
+\subsection[Problem Statement]{} \textsc{\underline{Problem Statement}}. \textit{How much extra distance do I walk when I oscillate sinusoidally instead of continuing on a straight path?}
+
+\subsection[Approach]{} \textsc{\underline{Approach}}. We use a sine/cosine function to approximate the sinusoidal path, and find the arc length of that path. Since one half-period of the sine function has an equivalent arc length to any other half period, we integrate over that half-period and scale with the amount of half-periods we oscillate. This result will be compared to the straight-line length over the same interval.
+
+\subsection[Solution]{} \textsc{\underline{Solution}}. The arc length \textit{s} of a function $f(x)$ for $x \in [x_1, x_2]$ is
+\begin{align} \label{eq2-1}
+s = \int_{x_1}^{x_2} \sqrt{1 + [f'(x)]^2} \; dx
+\end{align}
+We will begin by saying our oscillation is a sine function with amplitude \textit{A} starting at \textit{x} = 0. For a wavenumber \textit{k}, a half period is $\pi / k$. So we have
+\begin{gather}
+f(x) = A\sin{(kx)} \nonumber \\
+f'(x) = kA\cos{(kx)} \nonumber \\
+s = \int_{0}^{\pi / k} \sqrt{1 + k^2 A^2 \cos^2 (kx)} \; dx. \label{eq2-2}
+\end{gather}
+Now this is an ugly integral to evaluate. So we're going to do something that will only be justified in hindsight: we're going to shift our coordinate system to the right by half a half period. This shift does nothing to \textit{s} itself, but it accomplishes two things, both very important as we will shall see later: 1) the limits become symmetric about the \textit{y}-axis as they now go from -$\pi/2k$ to $\pi/2k$, and 2) $f(x)= \sin (kx)$ becomes $f(x) = \cos (kx)$, and so $f'(x) = kA \cos(kx)$ becomes $f'(x) = -kA \sin(kx)$. The integral in \eqref{eq2-2} becomes
+\begin{align}
+s = \int_{-\pi/2k}^{\pi / 2k} \sqrt{1 + k^2 A^2 \sin^2 (kx)} \; dx. \label{eq2-3}
+\end{align}
+Next, we make the change of variable $\theta = kx$, such that $1/k \; d\theta = dx$. The limits now go from $-\pi/2$ to $\pi/2$, and overall the integral becomes
+\begin{subequations}
+\begin{align}
+s &= \frac{1}{k}\int_{-\pi/2}^{\pi / 2} \sqrt{1 + k^2 A^2 \sin^2 \theta} \; d\theta \label{eq2-4a} \\
+&= \frac{1}{k}\left[ \int_{0}^{\pi/2} \sqrt{1+k^2 A^2 \sin^2 \theta} \; d\theta + \int^{0}_{-\pi/2} \sqrt{1+k^2 A^2 \sin^2 \theta}  \; d\theta \right]. \label{eq2-4b}
+\end{align}
+\end{subequations}
+(Note that we split the integral about the \textit{y}-axis between \eqref{eq2-4a} and \eqref{eq2-4b}.) We now define the \textit{complete elliptic integral of the second kind E(m)} as
+\begin{align}
+E(m) = \int_{0}^{\pi/2} \sqrt{1-m \sin^2 \theta} \; d\theta, \label{eq2-5}
+\end{align}
+and observe that the integrand in \eqref{eq2-4a} is symmetric about the \textit{y}-axis (because $\sin^2\theta$ is even). So the two terms in \eqref{eq2-4b} are equivalent, and we get (using \eqref{eq2-5} as well)
+\begin{align}
+s = \frac{2}{k} \int_{0}^{\pi/2} \sqrt{1+ k^2 A^2 \sin^2 \theta} \; d\theta = \frac{2}{k} E\left(-k^2 A^2\right). \label{eq2-6}
+\end{align}
+Now, \textit{k} is related to the wavelength (spatial period) by the relation $k = 2\pi / \lambda$. Letting the half wavelength be $\Lambda \equiv \lambda / 2 = \pi / k$, and substituting for \textit{k} in \eqref{eq2-6}:
+\begin{align} \label{eq2-7}
+s = \frac{2 \Lambda}{\pi} E\left(-\frac{\pi^2}{\Lambda^2} A^2 \right).
+\end{align}
+For \textit{n} half-wavelengths, we multiply \eqref{eq2-7} by \textit{n}. Meanwhile, the horizontal straight-line distance $s_o$ is just $\Lambda$ for one half-wavelength, $n \Lambda$ for \textit{n} half-wavelengths. So the percent increase from the straight-line distance to the oscillating distance is
+\begin{align} \label{eq2-8}
+\frac{\Delta s}{s_o} = \frac{n(s - s_o)}{ns_o} = \frac{s}{s_o} - 1 = \boxed{\frac{2}{\pi} E\left(-\pi^2 \frac{A^2}{\Lambda^2}\right) - 1}. 
+\end{align}
+As would be expected, this does not depend on \textit{n}. Some numerical values follow.
+\begin{center}
+\begin{tabular}{l|l|l}
+$A/\Lambda$ & $\Delta s / s_o \times 100$ & $s / (\pi \Lambda /2)$ (see Extensions)\\ \hline
+0.01 (random `noise' while walking) & 0.0247 & 0.637 \\ 
+0.1 (small perturbation) & 2.42 & 0.652 \\ 
+$1/\pi \approx 0.32$ (e.g. $\sin x$) & 21.6 & 0.774 \\ 
+1 & 130(!) & 1.47 \\ 
+2 & 319 & 2.67 \\ 
+5 & 909 & 6.43 \\ 
+10 (big!) & 1905 & 12.8 \\ \hline
+\end{tabular}
+\end{center}
+Note that for $A/\Lambda = 0.01$, the difference in the arc length is nearly negligible. When $A = \Lambda$, $s \approx 2.3s_o$! And $A/\Lambda = 10$, \textit{s} is nearly 2000\%, or around 20 times, longer than $s_o$!
+
+\subsection[Extensions]{} \textsc{\underline{Extensions.}} Here is a classical problem involving similar principles.
+
+\vspace{10pt} a) You are attempting to hike up a mountain whose summit is a \textit{direct} distance (not horizontal or vertical distance) \textit{d} away. You have two trails you can take to reach the summit. 
+\begin{itemize}
+\item One loops around and forms a big semicircle that connects you to the summit. This semicircle would have a radius \textit{d}/2.
+\item The other is a more direct trail, but since the mountain has a certain degree of steepness, the trail waves back and forth quickly with an average amplitude to half-wavelength ratio $A/\Lambda \approx$ 2. Assume $A \ll d$, but $n \Lambda = d$.
+\end{itemize}
+Assuming you take both trails at the same speed, which route would be faster?
+
+\vspace{10pt} If we travel at the same speed, one would pick the route that has the shortest length. We use the formula in \eqref{eq2-7} for the length $s_2$ of the second option.
+\begin{align} \label{eq2-9}
+s_2 = ns = \frac{2n\Lambda}{\pi}E \left(-\pi^2 \frac{A^2}{\Lambda^2}\right) = \frac{2d}{\pi}E \left(-4\pi^2 \right).
+\end{align}
+Meanwhile the length $s_1$ of the first option is the just the length of the semicircle:
+\begin{align} \label{eq2-10}
+s_1 = \frac{\pi d}{2}
+\end{align}
+We take the ratio of the two lengths, and plug in numerical values.
+\begin{align} \label{eq2-11}
+\frac{s_2}{s_1} = \frac{4}{\pi^2}E \left(-4\pi^2 \right) \approx 2.67.
+\end{align}
+Note that this is independent of \textit{d}, and is significantly larger than 1. That means the direct but zigzag/wavy path $s_2$ is \textit{much} longer, in fact over twice as long, and the less direct path is actually the faster one. The effects of oscillation add up! Numerical values of this ratio for other $A/\Lambda$ can be found in the table in the previous section.
+
+\vspace{10pt} b) So now the natural question beckons: since the length of the wavy path depends on the ratio of its amplitude and its half-wavelength, what value of that ratio would make that path faster?
+
+\vspace{10pt} For the direct path to be faster, $s_2 / s_1 \leq 1$. From that fact, and putting in \eqref{eq2-11} with a variable $A/\Lambda$, we have
+\begin{align} \label{eq2-12}
+E \left(-\pi^2 \frac{A^2}{\Lambda^2}\right) \leq \frac{\pi^2}{4}.
+\end{align}
+Using a computer, we get
+\begin{align} \label{eq2-13}
+\pi^2 \frac{A^2}{\Lambda^2} \leq 3.204, \text{ or } \frac{A}{\Lambda} \leq \sqrt{\frac{3.204}{\pi^2}} \approx 0.57.
+\end{align}
+By comparison, $A/\Lambda$ for $\sin x$ is $1/\pi \approx 0.32$. It's feasible.
+
+\vspace{10pt} c) In the example in (a), suppose the second path is straight for some fraction $\alpha$ of the distance. At what $\alpha$ would the second path be more optimal than the first semicircular path?
+
+\vspace{10pt} In this case, let $d_{\text{straight}} \equiv \alpha d$, such that $n \Lambda = d - d_{\text{straight}} = (1-\alpha) d$. Then
+\begin{align} 
+s_2 = \frac{2(1-\alpha) d}{\pi} E \left(-\pi^2 \frac{A^2}{\Lambda^2} \right) + \alpha d = (1-\alpha) s_{2,0} + \alpha d \label{eq2-14},
+\end{align}
+where $s_{2,0} \equiv$ the $s_2$ in \eqref{eq2-9}. Dividing it by $s_1$ in \eqref{eq2-10} and again asserting the ratio to be less than one, we get (for the case in question (a) of $A/\Lambda = 2$)
+\begin{align} \label{eq2-15}
+2.67(1-\alpha) + \frac{2 \alpha}{\pi}\leq 1. 
+\end{align}
+Or, solving for $\alpha$, $\alpha \geq 0.82$. In other words, nearly 4/5 of trail 2 must be straight for it to be more optimal than the other. Thinking about it another way, oscillations of amplitude $\approx$ wavelength in just 20 percent of an otherwise straight trail will make it as if you were going all the way around in a semicircular path, $\pi/2 \approx 1.6$ times longer.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{A Half-Filled Cup}
+Sometimes, I find myself gulping down a savory drink much too quickly. It's gone before I know it! As a result, I have made myself check on the status of my drink every now and then. Status being, of course, how much drink is left. A good indicator of this is the level of liquid. When the cup is half-empty, I know to slow my drinking down.
+
+\vspace{10pt} For cylindrical cups, gauging when half of my drink is done is easy -- 1/2 of the cup will be empty. But when the cup has a different geometry, it is more difficult. We explore that problem here.
+
+\subsection[Problem Statement]{} \textsc{\underline{Problem Statement}}. \textit{At what height above the base is a cup half-empty? The cup is radially symmetric about a vertical axis, and has constantly sloping sides (not completely straight vertical). 90\% of cups we use share these properties, and they will simplify our calculations dramatically.}
+
+\subsection[Approach]{} \textsc{\underline{Approach}}. Since the cup is radially symmetric about a vertical axis, we can use a differential volume element consisting of infinitisimally thick cylinders. Integrating over those elements between two points $y_1$ and $y_2$ along the vertical axis will yield the total volume between $y_1$ and $y_2$. The point where the cup is half-filled (or half-empty) is such that the volume between the base ($y=0$) and that point is equal to the volume between that point and the top of the cup ($y=h$, where \textit{h} is the height of the cup). 
+
+\subsection[Solution]{} \textsc{\underline{Solution}}. Let the radius of the cup be given by a function $r = r(y)$. The volume between points $y_1$ and $y_2$ along the axis of the cup is
+\begin{align} \label{eq3-1}
+\pi \int_{y_1}^{y_2}{r(y)^2}\; dy.
+\end{align}
+Now we find $r(y)$. Let the base have a radius $r_o$, and the top have a radius $r_o + \Delta r$. The cup has a height \textit{h}. Since the cup has constantly-sloping sides, our function $r(y)$ is some linear function of \textit{y}. We can thus immediately see that
+\begin{align} \label{eq3-2}
+r(y) = r_o + \frac{\Delta r}{h} y.
+\end{align}
+And as stated in the previous section, if the half-filled point is at height \textit{a}, then the two volumes between $y=0$ and $y=a$ and $y=a$ and $y=h$ have to be the same. That is,
+\begin{gather}
+\cancel{\pi} \int_{0}^{a}{r(y)^2}\; dy = \cancel{\pi} \int_{a}^{h}{r(y)^2}\; dy, \; \; \; \text{ or}\nonumber \\[0.4em]
+ \label{eq3-3} \int_{0}^{a}{\left(r_o + \frac{\Delta r}{h} y \right)^2}\; dy = \int_{a}^{h}{\left(r_o + \frac{\Delta r}{h} y \right)^2}\; dy.
+\end{gather}
+Evaluating the integrals in \eqref{eq3-3}, we get
+\begin{subequations}
+\begin{gather}
+\label{eq3-4a} r_o^2 \:a + \frac{r_o \Delta r}{h} a^2 + \frac{\Delta r^2}{h^2} \frac{a^3}{3} = r_o^2\: (h-a) + \frac{r_o \Delta r}{h} (h^2-a^2) + \frac{\Delta r^2}{h^2} \frac{(h^3-a^3)}{3}, \; \; \; \text{ or} \\[0.4em]
+\label{eq3-4b} \begin{align} 
+r_o^2 \left(\frac{a}{h}\right) h + r_o \Delta r \left(\frac{a}{h}\right)^2 h + \frac{\Delta r^2}{3} &\left(\frac{a}{h}\right)^3 h \nonumber \\[0.4em]
+&= r_o^2 h\left(1 - \frac{a}{h}\right) + r_o \Delta r h\left(1-\frac{a^2}{h^2}\right) + \frac{\Delta r^2}{3} h\left(1-\frac{a^3}{h^3}\right).
+\end{align}
+\end{gather}
+\end{subequations}
+The algebraic transformation from \eqref{eq3-4a} to \eqref{eq3-4b} is strategic. First, we see that a factor of \textit{h} cancels on both sides. Second, we can make a change of variable from \textit{a} to $\eta \equiv a/h$. Moving all terms to the RHS in \eqref{eq3-4b}, we get the following equation in terms of $\eta$:
+\begin{align} \label{eq3-5}
+r_o^2 (1 - 2\eta) + r_o \Delta r (1 - 2\eta^2 ) + \frac{\Delta r^2}{3} (1 - 2\eta^3) = 0,
+\end{align}
+which we can solve for $\eta$. This is done with a computer\footnote{See the output at \url{http://tinyurl.com/bv8x37a} (in the output, $a = r_o, b=\Delta r$).}. After some additional algebra, we obtain
+\begin{align} \label{eq3-6}
+\boxed{\eta = \sqrt[3]{\frac{1}{2}(2\rho^3 + 3\rho^2 + 3\rho + 1)}\; - \rho},
+\end{align}
+where $\rho \equiv r_o / \Delta r = 1/(R/r_o - 1)$ if \textit{R} is the radius at the top of the cup. A table of measurements and determinations follow for some selected cups.
+\begin{center}
+\begin{tabular}{l|l|l|l|l}
+Cup & $2R$ (cm) & $2r_o$ (cm) & $\rho \equiv (R/r_o - 1)^{-1}$ & $\eta \equiv a/h$ \\ \hline
+Vicki's green & 9.6 & 5.8 & 1.53 & 0.616 \\
+Crossroads & 7.3 & 5.3 & 2.65 & 0.577 \\
+Spill & 7.4 & 6.1 & 4.69 & 0.548 \\ \hline
+\end{tabular}
+\end{center}
+\subsection[Remarks]{} \textsc{\underline{Remarks}}. A good way to check the validity of the answer is to look at the limiting cases. For $\rho \rightarrow \infty$, or equivalently $\Delta r \rightarrow 0$, we expect $\eta \rightarrow 1/2$, as the cup becomes perfectly cylindrical. Though difficult to prove (I'll leave it as an exercise), this is indeed the case. For $\rho \rightarrow 0$, or $r_o \rightarrow 0$, we still expect $0.5 < \eta < 1$, which is also true: it is easily shown that $\eta(0) \approx 0.79$. In this limit, we get an ice cream cone. In between 0 and $\infty$, it is physically sensible that the $\eta$ is monotonically decreasing; as the top radius decreases, or as $\rho$ increases, the level at which the cup is half-filled must go down. A quick glance at the graph of $\eta$ and/or its derivative will indicate that this is true.
+
+\vspace{10pt} This result in \eqref{eq3-6} is only valid for $\rho \geq 0$. If the top radius is smaller than the bottom radius, \eqref{eq3-6} must be modified by substiting $\rho \rightarrow -\rho$ to account for  $\Delta r < 0$. 
+
+\subsection[Extensions]{} \textsc{\underline{Extensions}}.
+
+\vspace{10pt} a) Verify independently (without using \eqref{eq3-6}) that the vertical position at which a cone is halfway filled is around 79\% of the total height of the cone (measuring from the pointy edge). 
+
+\vspace{10pt} We use the integrals in \eqref{eq3-3}, with $r_o \rightarrow 0$ and $\Delta r \rightarrow R$, the radius at the top of the cone.
+\begin{align} \label{eq3-7} 
+\int_{0}^{a}{\left(\frac{R}{h} y \right)^2}\; dy = \int_{a}^{h}{\left(\frac{R}{h} y \right)^2}\; dy.
+\end{align}
+The constant factor $R^2/h^2$ cancels on both sides. Then evaluating the integrals, we get
+\begin{align}
+\frac{a^3}{3} = \frac{h^3 - a^3}{3}.
+\end{align}
+It is obvious, then, that
+\begin{align}
+h^3 &= 2a^3, \; \; \text{ or } \; \; \eta^3 \equiv \frac{a^3}{h^3} = \frac{1}{2}.
+\end{align}
+Thus, $\eta = \sqrt[3]{1/2}$, or around 0.79, as promised.
+
+\vspace{10pt} b) Easy: what is the volume of a constantly-sloping cup with parameters as given earlier ($\Delta r$, $r_o$, $h$)?
+
+\vspace{10pt} We let $a \rightarrow h$ on the LHS of \eqref{eq3-4b}, which gives (leaving out a constant factor of $\pi$):
+\begin{align}
+V &\propto h \left( r_o^2 + r_o \Delta r + \frac{\Delta r^2}{3} \right) = hr_o^2 \left( 1 + \frac{\Delta r}{r_o} + \frac{1}{3}\frac{\Delta r^2}{r_o^2} \right).
+\end{align}
+Now we let $\rho \equiv \Delta r / r_o$ (note that in our original problem, $\rho$ was defined as the recipriocal $r_o / \Delta r$), and add the $\pi$. Then we get that
+\begin{align}
+V = \pi r_o^2 h \left( 1 + \rho + \frac{\rho^2}{3} \right) = V_o \left( 1 + \rho + \frac{\rho^2}{3} \right),
+\end{align}
+where $V_o = \pi r_o^2 h$ is the volume of a cylinder with the same base radius and height. 
+%This is a good segue into our next problem.
+
+%\vspace{10pt} b) Inspired by the wide cups of Half-and-Half: given two cups, one of base radius $r_1$, height $h_1$, and other of base radius $r_2$, height $h_2$, and given that they have the same slope, what is their respective volumes? Which would potentially better to a customer drinking boba milk tea -- i.e. which one looks bigger but actually isn't?
+
+%\vspace{10pt} Yes, a somewhat ambiguously worded question, but here goes. We take the ratios of the two cups, of course, using \eqref{eq3-8}:
+%\begin{align} \label{eq3-9}
+%\frac{V_1}{V_2} = \frac{r_1^2}{r_2^2} \frac{h_1}{h_2} \left( \frac{1 + \rho_1 + \rho_1^2 / 3}{1 + \rho_2 + \rho_2^2 / 3} \right).
+%\end{align}
+%Now, setting the LHS to 1 and multiplying both sides by $h_2 / h_1$, we can see how the heights and radii of two equivolume cups compare:
+%\begin{align}
+%\frac{h_2}{h_1} = \frac{r_1^2}{r_2^2} \left( \frac{1 + \rho_1 + \rho_1^2 / 3}{1 + \rho_2 + \rho_2^2 / 3} \right).
+%\end{align}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Coin Funnel Donations}
+Remember those little donation funnels where you would drop a coin and watch it spiral closer and closer, as well as faster and faster, before it fell into the abyss of a collection tank? Well, this problem will quantify that motion.
+
+\subsection[Problem Statement]{} \textsc{\underline{Problem Statement}}. \textit{Describe the motion of a coin that is dropped into a coin funnel which is radially symmetric about its vertical axis. The height of the funnel above the collection tank is a function of the distance r from the axis, i.e. $z = z(r)$. Assume negligble friction.}
+
+\subsection[Approach]{} \textsc{\underline{Approach}}. We use the Lagrangian approach with generalized coordinates $(r, \phi)$ to derive an equation of motion (EOM) for the coin, which we can treat as a point particle. Since the system is constrained by the funnel surface, one degree of freedom is relinquished, and only two generalized coordinates are necessary.
+
+\subsection[Solution]{} \textsc{\underline{Solution}}. The Lagrangian $\mathcal{L}$ is given by
+\begin{align} \label{eq4-1}
+\mathcal{L} = T-U.
+\end{align}
+\textit{T} is the kinetic energy, $\frac{1}{2} m |\textbf{v}|^2$, which, in our coordinate system taht we have chosen, is
+\begin{align} \label{eq4-2}
+T = \frac{1}{2} m | (\dot{r}\boldsymbol{\hat{r}} + r\dot{\phi}\boldsymbol{\hat{\phi}})|^2 = \frac{1}{2} m (\dot{r}^2 + r^2 \dot{\phi}^2),
+\end{align}
+where the dot operator represents a time derivative. The potential energy \textit{U} is just the gravitation potential energy, given by
+\begin{align} \label{eq4-3}
+U = mgz(r).
+\end{align}
+In our problem, we let $z(r)$ be proportional to some power $\beta$ of \textit{r}. The boundary conditions follow. First, $z(\infty) = h$, where \textit{h} is the approximate height of the funnel. Put it another way, the funnel surface is nearly horizontal where the person drops the coin at height \textit{h} above the entrance to the collection tank. Second, $r \neq 0$ for all $z \geq 0$. The reason for this is both physical, as we'll see later, and because no funnels close off on their symmetry axis (or the coin could not fall into the collection tank). With that said, it can be shown that
+\begin{align} \label{eq4-4}
+z(r) = h\left(1 - \left(\frac{r_o}{r}\right)^\beta \right),
+\end{align}
+satifies these constraints, where $r_o$, the radius at the bottom of the funnel, and $\beta$, the power dependence, are positive constants. Combining Eqs \eqref{eq4-1} through \eqref{eq4-4}, the Lagrangian is
+\begin{align} \label{eq5-5}
+\mathcal{L} = \frac{1}{2} m (\dot{r}^2 + r^2 \dot{\phi}^2) - mgh\left(1 - \left(\frac{r_o}{r}\right)^\beta \right).
+\end{align}
+From Hamilton's Principle, a particle's path will extremize the Lagrangian. The Lagrange equations follow:
+\begin{subequations}
+\begin{align}
+\label{eq5-6a} \frac{\partial \mathcal{L}}{\partial r} = \frac{d}{dt} \frac{\partial \mathcal{L}}{\partial \dot{r}},\ \ \ 
+ \frac{\partial \mathcal{L}}{\partial \phi} = \frac{d}{dt} \frac{\partial \mathcal{L}}{\partial \dot{\phi}}.
+\end{align}
+\end{subequations}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Balls in a container}
+
+\subsection[Problem Statement]{}
+
+\end{document}
