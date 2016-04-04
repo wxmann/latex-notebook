@@ -1,0 +1,227 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{sectsty}
+\usepackage{cancel}
+\usepackage{float}
+\sectionfont{\large}
+\subsectionfont{\normalsize}
+\setlength{\parindent}{0cm}
+\geometry{top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm}
+
+\let\oldhat\hat
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+\let\cross\times
+
+\title{Balanced Atmospheric Flows}
+\author{Jim Tang}
+\begin{document}
+  \maketitle
+
+In the atmosphere four fundamental forces act upon parcels of air: the pressure gradient force, gravity, the Corolis force (over large length scales; to be discussed), and friction (near the ground). As we ignore viscous forces, we assume the air to be inviscid.
+
+\vspace{10pt}
+By applying static equilibrium principles on parcels in steady-state systems, we can approximate the flows found in various atmospheric phenomena. But before we begin, we must build up our machinery.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Setup}
+
+\subsection{Coordinate System}
+We will be using a \textit{local} orthogonal coordinate system oriented with respect to a position on Earth's surface. We will call $\hat{x}$ `east', in the direction of increasing azimuthal angle with respect to the Earth-centered/\textit{global} spherical coordinate system, $\hat{y}$ `north', in the direction of \textit{decreasing} polar angle, and $\hat{z}$ `up/down' from our vantage point. See the figure below.
+
+\vspace{10pt} Figure.
+
+\vspace{10pt} Any local curvilinear coordinates, e.g. local cylindrical coordinates, can be built from this local Cartesian basis.
+
+\subsection{Non-Inertial Reference Frames}
+Since we are working with air flows on a rotating Earth, problems will be easier if we use a non-inertial, rotating reference frame. In such a frame, several \textit{fictitious} forces are added into the mix. The derivation is lengthy and irrelevant for the discussion, so I will merely quote the result:
+\begin{align} \label{eq:fictforces}
+\mathbf{F}_{\text{rotating}} = \vec{F}_{\text{real}} - m \vec{\Omega} \cross (\vec{\Omega} \cross \vec{r}) + 2m\vec{v} \cross \vec{\Omega} + \vec{r} \cross \frac{d \vec{\Omega}}{dt},
+\end{align}
+where $\vec{F}_{\text{real}}$ is the sum of non-fictitious, physical forces, $\vec{\Omega}$ is the rotational velocity of the frame (in this case the rotational velocity of the Earth), and $m$ is the mass of a parcel or particle in the rotating frame (in subsequent calculations, we will replace that with the mass density $\rho$).
+
+\vspace{10pt} Since Earth's rotational velocity is constant, we can neglect the last term on the RHS in \eqref{eq:fictforces}, the Euler force. The second term, the centrifugal force, can also be ignored since it is not dependent on velocity and the magnitude of $\vec{r}$ is mostly constant across Earth's surface. Thus we are left with one main contribution: the third term, the Coriolis force,
+\begin{align} \label{eq:coriolis}
+\vec{F}_{\text{cr}} = 2 \rho \vec{v} \cross \vec{\Omega}.
+\end{align}
+
+\subsection{More on $\vec{\Omega}$}
+The direction of the angular velocity vector always points in the axis of rotation. To make subsequent calculations easier, we will compute the components of $\vec{\Omega}$ in our local coordinate system. Let $\theta$ be the polar angle of the global spherical coordinate system, equivalent to the colatitude, or 90$^{\circ}$-- latitude. Then,
+\begin{align} \label{eq:omegacomponents}
+\vec{\Omega} = (\Omega \sin \theta) \hat{y} + (\Omega \cos \theta) \hat{z},
+\end{align}
+where $\Omega$ is the magnitude of the Earth's angular velocity. Note that the $\hat{z}$ component of $\vec{\Omega}$ ensures that air flowing on Earth's surface (in the $\hat{x}$ or $\hat{y}$ direction) will be deflected to the right, due to the cross product in \eqref{eq:coriolis}. This will be critical later.
+
+\subsection{The Euler Equation, Material Derivative}
+The Euler equation of motion is the fluid analog of Newton's Second Law, incorporating the pressure gradient in the forces acting on a parcel:
+$$
+\rho \vec{a} = -\nabla p + \vec{F}_{\text{other}}.
+$$
+Now $\vec{F}_{\text{other}}$ incorporates the Coriolis force in \eqref{eq:coriolis}, gravity $\rho \vec{g}$, and the frictional force $\vec{F}_{\text{fric}} = \mathcal{F}(-\hat{\mathbf{v}}) = \mathcal{F}(-\vec{v}/v)$. The $\vec{-v}$ indicates it acts in the opposite direction of $\vec{v}$ at any given time, and the magnitude $\mathcal{F}$ is often a function of $v$.
+
+\vspace{10pt} On the LHS, we must be careful with $\vec{a}$. In continuum mechanics, the acceleration is not necessarily equal to $d\vec{v}/dt$. Instead, because different regions of a continuum can move with respect to one another, the differential operator is supplanted with the \textit{material} derivative $D/Dt$, and the acceleration $\vec{a}$ becomes
+\begin{align} \label{eq:matderiv}
+\vec{a} = \frac{D\vec{v}}{Dt} \equiv (\vec{v} \cdot \nabla) \vec{v}.
+\end{align}
+
+Diving the Euler equation through by $\rho$ and incorporating the specific forces, we get
+\begin{align} \label{eq:eom}
+\frac{D\vec{v}}{Dt} = -\frac{1}{\rho} \nabla p + 2 \vec{v} \cross \vec{\Omega} - \frac{1}{\rho} \vec{F}_{\text{fric}} + \vec{g}.
+\end{align}
+Now we can begin looking at some common flows in the atmosphere.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Geostrophic Flows}
+
+\subsection{A Simple Model}
+The canonical problem in the geostrophic regime is as follows. Consider two very large pressure cells. The area of low pressure is located to the north; the area of high pressure is to the south. 
+
+\vspace{10pt} Figure.
+
+\vspace{10pt} For now, we will neglect friction. Regarding the other forces, we can see from the above figure that $p = p(y,z)$. $\partial p / \partial y < 0$, so the pressure gradient force (PGF) must point in the $+\hat{y}$ direction (north). Since we are only considering situations in equilibrium, the Coriolis force (CF) must balance the PGF, and $D\vec{v}/Dt$ = 0. From this condition, eqs. \eqref{eq:coriolis}, \eqref{eq:omegacomponents}, and \eqref{eq:eom}, and the definition of the gradient, we have
+\begin{align}
+\frac{1}{\rho} \left( \frac{\partial p}{\partial y} \hat{y} + \frac{\partial p}{\partial z} \hat{z} \right) = 2 \vec{v} \cross [(\Omega \sin \theta) \hat{y} + (\Omega \cos \theta) \hat{z}] - g \hat{z}.
+\end{align} 
+
+Since the RHS must be equivalent to the LHS, all $\hat{x}$ components in the cross product must vanish. It is straightforward to see then that $\vec{v}$ cannot have $\hat{\vec{y}}$ or $\hat{z}$ components, i.e. $\vec{v} = v \hat{x}$. From there, the equalities of the components between the LHS and RHS yield (after computing the cross product)
+\begin{subequations}
+\begin{gather}
+\label{eq:z-bal}
+\text{$\hat{z}$ balance: } \ \frac{1}{\rho} \frac{\partial p}{\partial z} = -g + 2v \Omega \sin \theta , \\[0.4em] 
+\label{eq:y-bal}
+\text{$\hat{y}$ balance: } \ \frac{1}{\rho} \frac{\partial p}{\partial y} = -2v \Omega \cos \theta.
+\end{gather}
+\end{subequations}
+
+Now \eqref{eq:z-bal} should look familiar. If we can assume that $v \Omega \ll g$ (which is valid since $v\Omega \sim 10^{-3}$ m/s$^2$ and $g \sim 10$ m/s$^2$), the second term on the RHS of \eqref{eq:z-bal} can be ignored, and \eqref{eq:z-bal} reduces to the hydrostatic equation
+\begin{align} \label{eq:hydrostatic}
+\frac{\partial p}{\partial z} = -\rho g.
+\end{align}
+Thus we can ignore the z-equation for now.
+%Now you ought to ask how this set of equations can be satisfied, since both $g$ and $\partial p / \partial y$ are fixed. Well the answer to this is that it cannot, but from here on out in this article we will wing it and just ignore the $\hat{z}$ accelerations and focus solely on the $\hat{y}$ equations. Although this sounds sketchy, this is simply constraining our flows to the Earth's surface -- a valid approximation since the vertical movements of air are usually small compared to the horizontal movements of air. (Note that since the $\hat{y}$ component of the angular velocity produces a $\hat{z}$ component of Coriolis acceleration in flows along the Earth's surface, we will be ignoring that as well.)%
+
+\vspace{10pt} For the y-equation \eqref{eq:y-bal}, if we define the Coriolis parameter $f \equiv 2 \Omega \cos \theta$ and rearrange, we get an equilibrium condition for $v$:
+\begin{align} \label{eq:geostflow}
+\boxed{\: v = -\frac{1}{\rho f} \frac{\partial p}{\partial y}, \ \ \ \vec{v} = v\hat{x}. \: }
+\end{align}
+Finish.
+%This is the result of the steady-state approximation. It is a valid approximation when friction is negligible, such as it is in the mid-upper levels of the atmosphere. Additionally, it serves as a crude but useful model for the jet stream, a `river' of fast-moving air funneled between a large area of low pressure and a large area of high pressure. If the curvature of the pressure cells is negligible, or if the pressure cells are large, then this is a good approximation, but if the curvature is non-negligible, or the pressure cells are small, near the surface where friction is significant, we cannot use this approximation.
+
+%Thus, it serves as a crude but useful model for the dynamics of an upper-air jet stream. The geostrophic model suggests that the speed of a jet stream is proportional to the pressure gradient that 
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Gradient Flows}
+
+Applying geostrophic balance to a system in polar coordinates $(r, \phi, z)$ yields a different flow -- gradient flow. In this coordinate system we have an additional acceleration to worry about, the centripetal acceleration:
+\begin{align} \label{eq:centrip}
+\vec{a}_{\text{c}} = -\frac{(\vec{v} \cdot \hat{\phi})^2}{r}\hat{r} = -\frac{v_{\phi}^2}{r}\hat{r}.
+\end{align}
+Again ignoring friction, and adding this acceleration term to the LHS of \eqref{eq:eom}, we have
+\begin{align} \label{eq:eomgradient}
+\frac{D\vec{v}}{Dt} - \frac{(\vec{v} \cdot \hat{\phi})^2}{r}\hat{r} = -\frac{1}{\rho} \nabla p + 2 \vec{v} \cross \vec{\Omega}   + \vec{g}.
+\end{align}
+
+\subsection{Synoptic-Scale Vortex}
+Again we start with a special case -- a large vortex, such as a hurricane. In this case the pressure distribution is radially symmetric, so $p = p(r,z)$. Since we are still in geostrophic balance, $D\vec{v}/Dt = 0$, and writing the vector components out in \eqref{eq:eomgradient}, we get
+\begin{align}
+-\frac{v_{\phi}^2}{r}\hat{r} + \frac{1}{\rho} \left(\frac{\partial p}{\partial r}\hat{r} + \frac{\partial p}{\partial z}\hat{z}\right) = 2 \vec{v} \cross [(\Omega \sin \theta) (\sin \phi \hat{r} + \cos \phi \hat{\phi})+ (\Omega \cos \theta) \hat{z}] - g \hat{z}
+\end{align}
+(Note that $\hat{y} = \sin \phi \hat{r} + \cos \phi \hat{\phi}.)$ Looking at the equation, we see that for the RHS and LHS to be identical, the cross product should not yield any $\hat{\phi}$ components, so $\vec{v} = v \hat{\phi}$. We saw earlier that the z-components reduce to the hydrostatic equation in the small-$\Omega$ limit, so we will only look at the $\hat{r}$ balance (after computing the cross product):
+\begin{align}
+-\frac{v^2}{r} + \frac{1}{\rho} \frac{\partial p}{\partial r} = fv,
+\end{align}
+with $f = 2 \Omega \cos \theta$, as before. This is quadratic in $v$, so we can obtain the equilibrium wind speed by finding the roots using the quadratic formula. Doing this, we get
+$$
+v = -\frac{fr}{2} \pm \sqrt{\left(\frac{fr}{2}\right)^2 + \frac{r}{\rho} \frac{\partial p}{\partial r}}.
+$$
+But consider this. If the source of our pressure gradient is finite in size, that is if $\partial p / \partial r \rightarrow 0$ for large $r$, then the negative root solution blows up for large $r$, which is unphysical. Thus, we conclude that the wind speed in gradient flow is given by
+\begin{align} \label{eq:gradflowvel}
+\boxed{ \: v = -\frac{fr}{2} + \sqrt{\left(\frac{fr}{2}\right)^2 + \frac{r}{\rho} \frac{\partial p}{\partial r}}, \ \ \ \vec{v} = v\hat{\phi}. \:}
+\end{align}
+
+\subsection{Remarks}
+In cyclonic vortices, the wind rotates counterclockwise, so $v > 0$. This implies the quantity inside the root is greater than $(fr/2)^2$, so $\partial p / \partial r > 0$. This implies that the pressure at $r=0$ is a minimum. 
+
+%\vspace{10pt} One can think of it conceptually like this. Air initially far away from the pressure center is drawn into the pressure center by the PGF. However, the CF deflects the moving air. The radius at which radial accelerations vanish is the radius in which the CF, PGF, and the centrifugal force in the rotating parcel's frame (the centripetal force in our frame) balance out.
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Cyclostrophic Flows}
+
+If the pressure perturbations are very localized, but the minimum pressure remains constant, the pressure gradient becomes very large compared to the Coriolis parameter. So $(\partial p / \partial r)/\rho \gg f$, and we can ignore all terms in \eqref{eq:gradflowvel} of order $fr$ or smaller. Then \eqref{eq:gradflowvel} reduces to
+\begin{align} \label{eq:cycloflowvel}
+\boxed{ \: v = \sqrt{\frac{r}{\rho}\frac{\partial p}{\partial r}}, \ \ \ \vec{v} = v\hat{\phi}. \:}
+\end{align}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\section{Real Vortex Flows Modeled with Balanced Flow Schemes}
+
+\subsection{A Lorentzian Pressure Profile}
+Here the axially symmetric pressure profile $p(r)$ (the pressure profile in the z-direction can be found using the hydrostatic equation \eqref{eq:hydrostatic}) is
+\begin{align} \label{eq:plor}
+\frac{p_a - p(r)}{p_a - p_{\text{min}}} = \frac{1}{1+r^2 / \gamma^2},
+\end{align}
+where $p_a$ is the background atmospheric pressure, $p_{\text{min}}$ is the minimum central pressure, and $\gamma$ is the radius at which the pressure drop is half of the total pressure drop $\Delta p \equiv p_a - p_{\text{min}}$, and thus parameterizes the size of a vortex. So, the pressure gradient as a function of radius $r$ is
+\begin{align} \label{eq:pgradlor}
+\frac{\partial p}{\partial r}= \frac{2 r \Delta p}{\gamma^2}\left(\frac{1}{1+r^2 / \gamma^2}\right)^2.
+\end{align}
+
+\subsubsection{For Cyclostrophic Vortices}
+Plugging \eqref{eq:pgradlor} into the cyclostrophic speed \eqref{eq:cycloflowvel}, we obtain
+\begin{align}
+v = \sqrt{\frac{2\Delta p}{\rho} \left(\frac{r/\gamma}{1+ r^2 / \gamma^2}\right)^2} = \sqrt{\frac{2 \Delta p}{\rho}} \left(\frac{\tilde{r}}{1+\tilde{r}^2}\right),
+\end{align}
+where $\tilde{r}$ is the dimensionless radius $r/\gamma$. If we take the derivative $dv/d\tilde{r}$ and set it equal to zero, we find that the radius of maximum windspeed (RMW) is located at $\tilde{r} = 1 \Rightarrow r = \gamma$. At that point the maximum windspeed is
+\begin{align} \label{eq:vmax_lor_cyclo}
+v_{\text{max}} = \sqrt{\Delta p/ 2 \rho}.
+\end{align}
+Note that for a Lorentzian pressure profile, $v_{\text{max}}$ does not depend on the size of the cyclone. Tornadoes are the canonical cyclostrophic vortex, and this mathematical result jives with the observation that tornado intensity is only weakly dependent on size.\footnote{See, e.g. \href{http://journals.ametsoc.org/doi/abs/10.1175/1520-0434(2004)019\%3C0310:OTROTP\%3E2.0.CO\%3B2}{Brooks, Harold E., 2004: On the Relationship of Tornado Path Length and Width to Intensity. \textit{Wea. Forecasting}, \textbf{19}, 310–-319.}}
+
+\vspace{10pt}
+So let's attach numerical values to these equations. In 2003, Tim Samaras measured pressure drops inside an F-4 tornado of around 100 hPa \footnote{The data and paper can be found \href{https://ams.confex.com/ams/11aram22sls/techprogram/paper_81700.htm}{here}.}. The density of the air can be found using the equation of state
+$$
+\rho = p / R_{\text{specific}} T,
+$$
+where $R_{\text{specific}} \approx 287 \text{ J kg}^{-1} \text{K}^{-1}$ is the specific gas constant for air. From Samaras' data, we use $p \approx 900$ hPa and $T \approx 300$ K (the drops in pressure and temperature inside a tornado only cause slight deviations in $\rho$, and we are only interested in an order-of-magnitude estimate). Inserting these numerical values into \eqref{eq:vmax_lor_cyclo}, we get $\rho \approx 1.0$ kg/m$^3$, and that
+$$
+v_{\text{max}} \approx 70 \text{ m/s} \approx 155 \text{ mph}.
+$$
+This windspeed is equivalent to that of an EF-3 tornado in the current \href{http://www.spc.noaa.gov/faq/tornado/ef-scale.html}{Enhanced Fujita Scale}. Note that Samaras' data was taken near the end of the tornado's life cycle, so the tornado may have not been as strong as it was when it inflicted F-4 damage. It's not a bad estimate at all.
+
+\subsubsection{For Large-Scale Vortices}
+Plugging \eqref{eq:pgradlor} into the gradient speed \eqref{eq:gradflowvel}, we obtain
+\begin{align}
+v &= -\frac{fr}{2} + \sqrt{\left(\frac{fr}{2}\right)^2 + \frac{2\Delta p}{\rho} \left(\frac{r/\gamma}{1+ r^2 / \gamma^2}\right)^2 } \nonumber \\[0.5em]
+&= -\frac{f\gamma \tilde{r}}{2} + \sqrt{\left(\frac{f\gamma \tilde{r}}{2}\right)^2 + \frac{2 \Delta p}{\rho} \left(\frac{\tilde{r}}{1+\tilde{r}^2}\right)^2} = \frac{f\gamma \tilde{r}}{2} \left( \sqrt{1 + \frac{8}{\rho f^2} \frac{\Delta p}{\gamma^2} \left(\frac{1}{1+\tilde{r}^2}\right)^2} - 1\right).
+\end{align}
+It is hard to find an analytic solution to the value of $\tilde{r}$ where $v$ is extremized, but we can do this numerically. I'm going to use $\rho \approx 1.1$ kg/m$^3$. We will vary $\Delta p$, $f$, and $\gamma$ and see the effects. %and latitude of 20$^{\circ} \Rightarrow f \approx 1.4 \times 10^{-4} \text{ s}^{-1}$. 
+
+\begin{table}[h]\footnotesize
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline 
+$\Delta p$ (hPa) & $\gamma$ (km) & lat $\varphi$ ($^{\circ}$) & $f = 2\Omega \sin \varphi$ (s$^{-1}$)& $f\gamma / 2$ & $8\Delta p / \rho (f\gamma)^2$ & RMW/$\gamma$ & $v_{\text{max}}$ (m/s) \\
+\hline
+100 & 100 & 20 & $5.0 \times 10^{-5}$ & 2.5 & 2909 & 0.966 & 65 \\
+\hline
+100 & 10 & 20 & $5.0 \times 10^{-5}$ & 0.25 & 290910 & 0.996 & 67 \\
+\hline
+100 & 50 & 20 & $5.0 \times 10^{-5}$ & 1.25 & 11636 & 0.982 & 66 \\
+\hline
+140 & 50 & 20 & $5.0 \times 10^{-5}$ & 1.25 & 16290 & 0.985 & 79 \\
+\hline
+40 & 50 & 20 & $5.0 \times 10^{-5}$ & 1.25 & 4655 & 0.973 & 41 \\
+\hline
+40 & 50 & 40 & $9.4 \times 10^{-5}$ & 2.35 & 1317 & 0.951 & 40 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\end{document}
