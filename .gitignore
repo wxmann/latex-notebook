@@ -8,6 +8,13 @@
 *.toc
 *.fmt
 
+## TEXNICCENTER FILES
+*.tcp
+*.tps
+
+## ZIP files (there are some rogue ones in here)
+*.zip
+
 ## Intermediate documents:
 *.dvi
 *-converted-to.*
