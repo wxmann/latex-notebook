@@ -8,10 +8,12 @@
 \usepackage{float}
 \usepackage{placeins} 
 \usepackage{enumitem}
+%\usepackage{chngcntr}
 \sectionfont{\large}
 \subsectionfont{\normalsize}
 \setlength{\parindent}{0cm}
 %\setlength{\parskip}{10pt}
+%\counterwithin*{equation}{section}
 \geometry{top=3cm,bottom=3cm,left=3cm,right=3cm}
 \setlist{nosep}
 
@@ -23,6 +25,7 @@
 Over the past two weeks, I have observed an enormous increase in gas prices. Unfortunately, having not filled up on gas in awhile, I missed it when the prices bottomed out. Perhaps, if I had filled up on gas more often, I may have been able to get it when it was at its lowest. This inspired me to ask the question: in general, is it better to fill up more or less frequently, in smaller or bigger chunks?
 
 \section*{Calculation}
+%\addtocounter{section}{1}
 \label{sec:calculation}
 
 Gas prices are known to fluctuate back-and-forth. Mathematically, we can model this with a sinusoidal function. (Recall that any oscillatory signal can be expressed us a sum of sinusoids, so this is a good starting point.) Let $G(t)$ be the gas price as a function of time. With this model,
@@ -71,7 +74,7 @@ For simplicity's sake, we will hereafter write the LHS as $L \equiv (C - C_0) / 
 \par
 Recall now that we defined $N$ in terms of $\tau$ (and by extension, $q$). So we are not yet done. We have to evaluate the sum to extract $N$, which, after an involved calculation \footnote{The calculation in all its glory is dealt with in \hyperref[subsec:sine_sum]{Appendix A}.}, results in
 \begin{equation}
-L = q \: \frac{\sin(N\pi q) \sin((N+1)\pi q)}{\sin(\pi q)}.
+L = q \: \frac{\sin(N\pi q) \sin((N+1)\pi q)}{\sin(\pi q)}. \label{eq:summed_result}
 \end{equation}
 
 Substituting 
@@ -136,7 +139,7 @@ L = q \: \frac{\sin(\pi p) \sin(\pi (p+q))}{\sin(\pi q)} &\rightarrow \frac{q}{\
 This is the most sensible approximation, as it says our sampling time is much longer than the interval of sampling. Which makes sense, if we consider our titular question over a long period of time. Indeed, this may be the only question that matters -- what is our \textit{long-term} strategy? The good news is that the math simplifies in this limiting case. \\
 
 \par
-First off, $p$ and $q$ are separable, that is, $L = f(p)g(q)$. Thus, we can set aside the $p$ dependence. It is our understanding at this point that the $\sin^2(\pi p)$ term simply scales $L$ relative to $q$ without changing the fundamental dependence. \\
+First off, $p$ and $q$ are separable, that is, $L = f(p)g(q)$. Thus, we can set aside the $p$ dependence for now. It is our understanding here that the $\sin^2(\pi p)$ term simply scales $L$ relative to $q$ without changing the fundamental dependence. \\
 
 To begin illustrating my subsequent point, I'm going to now scale $L$ by $\pi$ to define
 \begin{equation}
@@ -145,13 +148,66 @@ L' \equiv \pi L = f(p) \frac{\pi q}{\sin (\pi q)}.
 
 Again, as we did before with $\sin^2(\pi p)$, we have just scaled $L$ by a constant relative to $q$, which is 100\% valid. Note that I have replaced the $\sin^2$ term by $f(p)$ to make my earlier point clearer as well. And then to complete the syntactic sugaring, we might as well define $q'$ as $\pi q$:
 \begin{equation}
-L' = f(p) \frac{q'}{\sin q'}.
+L' = f(p) \frac{q'}{\sin q'}. \label{eq:L_scaled_q_prime}
 \end{equation}
 
 Consider the interval $0 < q < 1$, or $0 < q' < \pi$. These are the most common cases, as our sampling period (how often we fill up our gas) $\tau$ is almost always smaller than the period at which the signal (gas prices) fluctuate $f$. (Recall that $q = \tau / f$.) In this interval, we can see that $q'$ will increase faster than $\sin q'$, the latter of which reaches a max at $q' =\pi/2$ and then drops back to zero at $q' = \pi$. Hence the ratio $q'/\sin q'$ is increasing in that interval. So does that mean it's cheaper to fill gas more frequently? Hold up, not yet...
 
 \section*{Phase Shifts}
 \label{sec:phase_shifts}
+\textit{Intuitively}, we should say whatever result we obtain with \eqref{eq:gas_prices} can be used without loss of generality with any phase shifts to the sine waves. Let us set out to prove or disprove this. Define $\tilde{G}(t)$ such that
+\begin{equation}
+\tilde{G}(t) = G_0 + G_a \sin \left( \frac{2 \pi (t + t_{\delta})}{f} \right) \label{eq:gas_prices_shifted},
+\end{equation} 
+
+where $t_{\delta}$ is an arbitrary horizontal shift to our gas prices ``signal". With this, \eqref{eq:result_dimensional} becomes
+\begin{equation}
+\frac{C - C_0}{b G_a} = \tau \sum_{k=1}^{N}{\sin \left( \frac{2 \pi (k \tau + t_{\delta})}{f}\right)} \label{eq:result_dimensional_shifted}.
+\end{equation}
+
+As in our base calculation, we seek to nondimensionalize the equation, which we will do by defining
+$$
+s \equiv \frac{t_{\delta}}{f},
+$$
+
+in addition to the original $q$, to yield
+\begin{equation}
+\frac{C - C_0}{b G_a f} = q \sum_{k=1}^{N}{\sin \left( 2 \pi (kq + s) \right)}. \label{eq:result_dimensionless_shifted}
+\end{equation}
+
+Evaluating the sum as we did previously, we get
+\begin{equation}
+\tilde{L} = q \: \frac{\sin(N\pi q) \: \sin((N+1)\pi q + 2\pi s)}{\sin(\pi q)}, \label{eq:summed_result_shifted}
+\end{equation}
+
+where the tilde on the $\tilde{L}$ signifies this is the shifted-sine result. \\
+
+\par Comparing this result to \eqref{eq:summed_result}, we can conclude that the final result involving $p$, $q$, and the newly-minted $s$ will be
+\begin{equation}
+\boxed{\tilde{L} = \frac{C - C_0}{b G_a f} = q \: \frac{\sin(\pi p) \sin(\pi (p+q) + 2\pi s)}{\sin(\pi q)}}. \label{eq:result_final_shifted}
+\end{equation}
+
+Focusing on the \textit{long-term} strategy, we take conditions $p \gg q$:
+\begin{equation}
+\tilde{L} \xrightarrow{p \gg q}  \frac{q}{\sin(\pi q)} \sin(\pi p) \sin(\pi p + 2\pi s).
+\end{equation}
+
+This is once again separable between $p$ and $q$. Scaling $\tilde{L}$ by $\pi$, and then defining our $q' = \pi q$ and $\tilde{f}(p) = \sin(\pi p) \sin(\pi p + 2\pi s)$, we have
+\begin{equation}
+\tilde{L}' = \tilde{f}(p)\frac{q'}{\sin q'} .  \label{eq:L_scaled_q_prime_shifted}
+\end{equation}
+
+Now compare \eqref{eq:L_scaled_q_prime_shifted} to \eqref{eq:L_scaled_q_prime}. The $q'$ dependence is the same. However, $f(p) \neq \tilde{f}(p)$. $f(p) = \sin (\pi p) \geq 0$, whereas $\tilde{f}(p) = \sin (\pi p) \sin (\pi p + 2\pi s)$, such that $-1 \leq \tilde{f}(p) \leq 1$. 
+
+\section*{Upshot} 
+Recall that the variables $p$ and $s$ represent how long we're sampling, and the position of the gas prices at $t=0$, respectively. For all intents and purposes, we won't really care about $p$ and $s$ is the ''luck-factor." The magnitude of $L \propto C - C_0$, the deviation from average cost, is always going to be greater the less frequently you sample, for a given $p$ and $s$. When we initially set up the problem, we used $G(t) \sim \sin (t)$, which ended up giving us losses. On closer examination, this should not have been a surprising result, because the gas prices rise initially, giving us a ``bias" of positive values from the get-go. However, if we had replace $\sin(t)$ with $-\sin(t)$, or alternatively using $s = 1/2$ (a half-period shift) in \eqref{eq:result_final_shifted}, the value would have been negative, because a negative ``bias" would have been established in the first quarter-period. $L$ in that case would become more negative as the sampling period increase. Loosely speaking, $q$ controls the magnitude of $L$, while $p$ and $s$ the sign (loss is $L > 0$, gain is $L < 0$).\\
+
+\par
+With regards to $q$, all this mathematical work has shown that we can \textbf{minimize the maximum loss} by minimizing $q$. However, the maximum amount you could stand to gain also decreases with $q$. Though this analysis was done with gas prices, we can use this result with, say, stocks. Instead of sampling for some long time, we want to invest in a certain amount of stocks. They also oscillate with some frequency. The common knowledge in the investment world is to invest in small bundles of the stock frequently, rather than to purchase a lump-sum of it. This is known as \hyperref[https://en.wikipedia.org/wiki/Dollar_cost_averaging]{dollar-cost averaging}. Frequent purchasing of small units hedges against bad luck, and larger losses.\\
+
+\par 
+So to answer the question in the title: \textbf{I want to minimize my losses, and therefore, by the math done in this article, I will fill up more frequently}.
+
 
 \section*{Appendix}
 
