@@ -175,7 +175,7 @@ in addition to the original $q$, to yield
 \frac{C - C_0}{b G_a f} = q \sum_{k=1}^{N}{\sin \left( 2 \pi (kq + s) \right)}. \label{eq:result_dimensionless_shifted}
 \end{equation}
 
-Evaluating the sum as we did previously, we get
+Evaluating the sum as we did previously, we get\footnote{See \hyperref[subsubsec:sumwith_phase_shift]{Appendix A, Section 2.}}
 \begin{equation}
 \tilde{L} = q \: \frac{\sin(N\pi q) \: \sin((N+1)\pi q + 2\pi s)}{\sin(\pi q)}, \label{eq:summed_result_shifted}
 \end{equation}
@@ -203,7 +203,7 @@ Now compare \eqref{eq:L_scaled_q_prime_shifted} to \eqref{eq:L_scaled_q_prime}. 
 Recall that the variables $p$ and $s$ represent how long we're sampling, and the position of the gas prices at $t=0$, respectively. For all intents and purposes, we won't really care about $p$ and $s$ is the ''luck-factor." The magnitude of $L \propto C - C_0$, the deviation from average cost, is always going to be greater the less frequently you sample, for a given $p$ and $s$. When we initially set up the problem, we used $G(t) \sim \sin (t)$, which ended up giving us losses. On closer examination, this should not have been a surprising result, because the gas prices rise initially, giving us a ``bias" of positive values from the get-go. However, if we had replace $\sin(t)$ with $-\sin(t)$, or alternatively using $s = 1/2$ (a half-period shift) in \eqref{eq:result_final_shifted}, the value would have been negative, because a negative ``bias" would have been established in the first quarter-period. $L$ in that case would become more negative as the sampling period increase. Loosely speaking, $q$ controls the magnitude of $L$, while $p$ and $s$ the sign (loss is $L > 0$, gain is $L < 0$).\\
 
 \par
-With regards to $q$, all this mathematical work has shown that we can \textbf{minimize the maximum loss} by minimizing $q$. However, the maximum amount you could stand to gain also decreases with $q$. Though this analysis was done with gas prices, we can use this result with, say, stocks. Instead of sampling for some long time, we want to invest in a certain amount of stocks. They also oscillate with some frequency. The common knowledge in the investment world is to invest in small bundles of the stock frequently, rather than to purchase a lump-sum of it. This is known as \hyperref[https://en.wikipedia.org/wiki/Dollar_cost_averaging]{dollar-cost averaging}. Frequent purchasing of small units hedges against bad luck, and larger losses.\\
+With regards to $q$, all this mathematical work has shown that we can \textbf{minimize the maximum loss} by minimizing $q$. However, the maximum amount you could stand to gain also decreases with $q$. Though this analysis was done with gas prices, we can use this result with, say, stocks. Instead of sampling for some long time, we want to invest in a certain amount of stocks. They also oscillate with some frequency. The common knowledge in the investment world is to invest in small bundles of the stock frequently, rather than to purchase a lump-sum of it. This is known as \href{https://en.wikipedia.org/wiki/Dollar_cost_averaging}{dollar-cost averaging}. Frequent purchasing of small units hedges against bad luck, and larger losses.\\
 
 \par 
 So to answer the question in the title: \textbf{I want to minimize my losses, and therefore, by the math done in this article, I will fill up more frequently}.
@@ -215,9 +215,92 @@ So to answer the question in the title: \textbf{I want to minimize my losses, an
 \label{subsec:sine_sum}
 
 \renewcommand{\theequation}{A.\arabic{equation}}
+\renewcommand{\Im}[1]{\text{Im}\left[{#1}\right]}
+\renewcommand{\exp}[1]{e^{#1}}
+In this appendix we evaluate the sum in \eqref{eq:result_dimensionless}. Let $S$ be the value of the sum:
 \begin{equation}
-y = mx+b
+S = \sum_{k=1}^{N} \sin (2 \pi k q).
 \end{equation}
+
+Here we opt to use complex exponentials, realizing that
+\begin{equation}
+\sum_{k=1}^{N} \sin (2 \pi k q) = \sum_{k=1}^{N} \Im{\exp{i(2 \pi k q)}} = \Im{\sum_{k=1}^{N} \exp{i(2 \pi k q)}}.
+\end{equation}
+
+Defining
+$$
+r \equiv e^{i(2 \pi q)},
+$$
+
+we get
+\begin{equation}
+S = \Im{\sum_{k=1}^{N} r^{k}}.
+\end{equation}
+
+This is a geometric series, which can be easily summed explicitly:
+\begin{equation}
+\sum_{k=1}^{N} r^{k} = \frac{r - r^{N+1}}{1 - r}
+\end{equation}
+
+and hence, plus followed by some algebraic manipulation
+\begin{align}
+S = \Im{\frac{r - r^{N+1}}{1 - r}} &= \Im{\frac{\exp{i 2\pi q} - \exp{i 2\pi q (N+1)}}{1 - \exp{i 2\pi q}}} \nonumber \\[0.4em]
+ &= \Im{\exp{i 2\pi q} \: \frac{1 - \exp{i 2\pi Nq}}{1 - \exp{i 2\pi q}}}. \label{eq:cmplxexp_ratio}
+\end{align}
+
+To continue we must manipulate the ratio expression inside \eqref{eq:cmplxexp_ratio},
+$$
+\frac{1 - \exp{i 2\pi Nq}}{1 - \exp{i 2 \pi q}} = 
+\frac{\cancel{2i} \: \exp{i \pi Nq}\left(\frac{\exp{-i\pi Nq} - \exp{i\pi Nq}}{2i}\right)}{\cancel{2i} \: \exp{i\pi q} \left( \frac{\exp{-i\pi q} - \exp{i\pi q}}{2i}\right)}.
+$$
+
+Of course we do this because we realize
+$$
+\sin u = \frac{\exp{iu} - \exp{-iu}}{2i}.
+$$
+
+So 
+$$
+\frac{1 - \exp{i 2\pi Nq}}{1 - \exp{i 2 \pi q}} = \frac{\exp{i\pi Nq}\sin(N\pi q)}{\exp{i\pi q}\sin(\pi q)}
+$$
+
+and
+\begin{align}
+S = \Im{\exp{i 2\pi q} \: \frac{1 - \exp{i 2\pi Nq}}{1 - \exp{i 2\pi q}}} 
+&= \Im{\exp{i 2\pi q} \: \frac{\exp{i\pi Nq}\sin(N\pi q)}{\exp{i\pi q}\sin(\pi q)}} \nonumber \\[0.5em]
+&= \Im{\exp{i \pi (N+1)q} \: \frac{\sin(N\pi q)}{\sin(\pi q)}} \label{eq:after_long_summation}.
+\end{align}
+
+But the sines are real, so we can pull them out of the imaginary part:
+\begin{align}
+S &= \frac{\sin(N\pi q)}{\sin(\pi q)} \: \Im{\exp{i \pi (N+1)q}} \\[0.5em]
+&= \frac{\sin(N\pi q)}{\sin(\pi q)} \: \sin((N+1)\pi q),
+\end{align}
+
+where in the last step we actually take the imaginary part, undoing what we did in the first step. $qS$ is just the result in \eqref{eq:summed_result}, so we're done here. QED.
+
+\subsubsection*{Adding the phase shift}
+\label{subsubsec:sumwith_phase_shift}
+Now we extend this result to account for the phase shift, as in \eqref{eq:result_dimensionless_shifted}. Let
+\begin{equation}
+\tilde{S} = \sum_{k=1}^{N} \sin(2\pi (kq + s)).
+\end{equation}
+
+We use the complex exponential trick again:
+\begin{equation}
+\tilde{S} = \Im{\sum_{k=1}^{N} \exp{i(2\pi (kq + s))}} = \Im{\exp{i(2\pi s)}\sum_{k=1}^{N} \exp{i(2\pi kq)}} \label{eq:step1_shifted},
+\end{equation}
+
+where in the latter equality we have taken $\exp{i(2\pi s)}$ out of the summation as there is no $k$-dependence. \\
+
+\par The latter sum was just done in the previous subsection of Appendix A, so we substitute the result in \eqref{eq:after_long_summation} in:
+\begin{align}
+\tilde{S} = \Im{\exp{i(2\pi s)}\sum_{k=1}^{N} \exp{i(2\pi kq)}} &= \Im{\exp{i \pi (N+1)q} \: \exp{i 2\pi s} \: \frac{\sin(N\pi q)}{\sin(\pi q)}} \nonumber \\[0.5em]
+&= \frac{\sin(N\pi q)}{\sin(\pi q)} \: \Im{\exp{i (\pi (N+1)q + 2\pi s)}} \\[0.5em]
+&= \frac{\sin(N\pi q)}{\sin(\pi q)} \: \sin ((N+1)\pi q + 2\pi s), \label{eq:step2_shifted}
+\end{align}
+
+following algebraic steps similar to the last subsection in our work between \eqref{eq:step1_shifted} and \eqref{eq:step2_shifted}. In similar fashion $q\tilde{S}$ equals the result in \eqref{eq:summed_result_shifted}. QED.
 
 \subsection*{B. Sum of sines to integral}
 \label{subsec:sum_to_int}
