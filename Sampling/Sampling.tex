@@ -215,7 +215,7 @@ So to answer the question in the title: \textbf{I want to minimize my losses, an
 \label{subsec:sine_sum}
 
 \renewcommand{\theequation}{A.\arabic{equation}}
-\renewcommand{\Im}[1]{\text{Im}\left[{#1}\right]}
+\renewcommand{\Im}[1]{\text{Im}\left({#1}\right)}
 \renewcommand{\exp}[1]{e^{#1}}
 In this appendix we evaluate the sum in \eqref{eq:result_dimensionless}. Let $S$ be the value of the sum:
 \begin{equation}
@@ -306,8 +306,35 @@ following algebraic steps similar to the last subsection in our work between \eq
 \label{subsec:sum_to_int}
 
 \renewcommand{\theequation}{B.\arabic{equation}}
+Again we are at our favorite point,
 \begin{equation}
-y = mx+b
+S = \sum_{k=1}^{N} \sin (2 \pi k q).
 \end{equation}
+
+Now we let $q \rightarrow 0$. However, $p$ must remain fixed which means $N$ becomes very large. If we think about the original discrete sum, we sum our sine function at unit intervals of $k$. However, since $N$ becomes large now, $k$ looks very small. Thus, our sum along $k$ can be approximated by an integral along $k$:
+\begin{equation}
+\sum_{k=1}^{N} \sin (2 \pi k q) \rightarrow \int_0^N{\sin(2\pi k q) \: dk}.
+\end{equation}
+
+This is straightforward integral to evaluate.
+\begin{align}
+\int_0^N{\sin(2\pi k q) \: dk} &= -\left.\frac{\cos(2\pi k q)}{2\pi q}\right\vert_{0}^{N}  \\[0.5em]
+&= \frac{1}{\pi q} \left(\frac{1 - \cos(2\pi q N)}{2}\right) \nonumber \\[0.5em]
+&= \frac{\sin^2(\pi q N)}{\pi q},
+\end{align}
+
+where we have used the identity $\cos 2u = 1 - 2\sin^2 u$ in the last step. \\
+
+\par Finally, recall
+$$
+N = \frac{T}{fq} \Rightarrow Nq = \frac{T}{f} = p.
+$$
+
+Hence
+\begin{equation}
+S \xrightarrow{q \rightarrow 0} \frac{\sin^2(\pi q N)}{\pi q} = \frac{\sin^2(\pi p)}{\pi q}.
+\end{equation}
+
+And $qS$ results in the expression in \eqref{eq:q_to_zero}, which is what we expected all along. QED.
 
 \end{document}
